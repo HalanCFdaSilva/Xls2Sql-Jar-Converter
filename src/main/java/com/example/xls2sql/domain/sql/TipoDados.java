@@ -9,7 +9,7 @@ public class TipoDados {
     private TipoDadosSql tipo;
     private int numeroElementos;
 
-    public TipoDados(String celulaSegundaLinhaExcel, int colunaExcel) {
+    public TipoDados(String celulaSegundaLinhaExcel,int colunaexcel) {
 
 
         if (celulaSegundaLinhaExcel.contains("(")){
@@ -25,7 +25,7 @@ public class TipoDados {
             numeroElementos = 0;
         }
 
-        tipo = TipoDadosSql.checarDados(celulaSegundaLinhaExcel,colunaExcel);
+        tipo = TipoDadosSql.checarDados(celulaSegundaLinhaExcel,colunaexcel);
 
 
 

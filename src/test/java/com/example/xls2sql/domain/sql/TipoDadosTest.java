@@ -11,7 +11,7 @@ public class TipoDadosTest {
     @Test
     public void conseguirAcharOtipoDeDadoSqlComTextoMinusculo(){
 
-        TipoDados tipoDados =  new TipoDados("varchar", 1);
+        TipoDados tipoDados =  new TipoDados("varchar",1);
         Assertions.assertEquals(TipoDadosSql.VARCHAR, tipoDados.getTipo());
 
     }
@@ -33,11 +33,11 @@ public class TipoDadosTest {
     }
 
     @Test
-    public void PorNullQuandoNaoHaNumeroDeElementos(){
+    public void PorZeroQuandoNaoHaNumeroDeElementos(){
 
-        TipoDados tipoDados =  new TipoDados("varchar", 1);
+        TipoDados tipoDados =  new TipoDados("varchar",1);
 
-        Assertions.assertEquals(null, tipoDados.getNumeroElementosString());
+        Assertions.assertEquals(0, tipoDados.getNumeroElementosInteger());
 
     }
 
@@ -45,7 +45,7 @@ public class TipoDadosTest {
     public void darExcessionQuandoTipoDadoSqlNãoForEncontrado(){
 
         Assertions.assertThrows(TipoDadoSqlNaoEncontradoException.class,
-                (Executable) new TipoDados("String", 1));
+                () -> new TipoDados("String",1));
 
 
     }

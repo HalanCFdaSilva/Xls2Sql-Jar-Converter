@@ -33,7 +33,7 @@ public class LeitorXls {
 
 
         DadosSql dadosSql = new DadosSql();
-        Integer linhaXls = 0;
+        Integer linhaDoExcel = 0;
 
 
         Iterator<Row> rowIterator = sheet.iterator();
@@ -45,7 +45,7 @@ public class LeitorXls {
             ElementosSql elementosSql = new ElementosSql();
             Coluna coluna = new Coluna();
 
-            int colunaXls = 0;
+            int colunaDoExcel = 0;
 
 
             while (cellIterator.hasNext()) {
@@ -53,51 +53,30 @@ public class LeitorXls {
 
 
 
-               if(linhaXls == 0){
-                   coluna = this.adicionarColuna(cell);
+               if(linhaDoExcel == 0){
+                   coluna = this.adicionarColuna(cell, colunaDoExcel);
 
-               } else if (linhaXls == 1 && colunaXls <= dadosSql.getColunas().size() -1) {
-                   coluna = this.incluirTipo(cell, dadosSql.getColunas().get(colunaXls));
-                   dadosSql.getColunas().set(colunaXls,coluna);
 
-               }else if (linhaXls > 1 && colunaXls <= dadosSql.getColunas().size() -1) {
-                   this.elementoSql = new ElementoSql(linhaXls);
-                   this.adicionarElemento(cell, dadosSql.getColunas().get(colunaXls));
+               }else if (colunaDoExcel <= dadosSql.getColunas().size() -1) {
+                   this.elementoSql = new ElementoSql(linhaDoExcel);
+                   this.adicionarElemento(cell, dadosSql.getColunas().get(colunaDoExcel));
                    elementosSql.adicionar(this.elementoSql);
-
-
-
             }
-                colunaXls++;
-            if (linhaXls == 0){
+                colunaDoExcel++;
+            if (linhaDoExcel == 0){
                 dadosSql.adicionar(coluna);
-            } else if (linhaXls > 1) {
+            } else  {
                 dadosSql.adicionar(elementosSql);
             }
 
             }
-                linhaXls++;
+                linhaDoExcel++;
         }
         inputStream.close();
 
         return dadosSql;
     }
 
-    private Coluna incluirTipo(Cell cell, Coluna coluna) {
-        switch (cell.getCellType()) {
-
-
-            case NUMERIC:
-                coluna.pegarTipo(Integer.toString((int) cell.getNumericCellValue()),1);
-                break;
-
-            case STRING:
-                coluna.pegarTipo(cell.getStringCellValue(),1);
-                break;
-
-        }
-        return coluna;
-    }
 
     private void adicionarElemento(Cell cell, Coluna coluna) throws CelulaExcelComTamanhoMaiorQueOPermitidoColuna {
 
@@ -116,18 +95,18 @@ public class LeitorXls {
 
     }
 
-    private Coluna adicionarColuna(Cell cell) {
+    private Coluna adicionarColuna(Cell cell, int colunaExcel) {
 
         Coluna coluna = new Coluna();
         switch (cell.getCellType()) {
             case NUMERIC:
 
-                coluna.adicionar(Integer.toString((int) cell.getNumericCellValue()));
+                coluna.adicionar(Integer.toString((int) cell.getNumericCellValue()), colunaExcel);
 
                 break;
             case STRING:
 
-                coluna.adicionar(cell.getStringCellValue());
+                coluna.adicionar(cell.getStringCellValue(), colunaExcel);
 
                 break;
         }
