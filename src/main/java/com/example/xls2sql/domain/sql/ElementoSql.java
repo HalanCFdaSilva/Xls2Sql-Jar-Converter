@@ -6,9 +6,9 @@ public class ElementoSql {
 
     private String celula;
     private TipoDados tipoDados;
-    private Integer linha;
+    private int linha;
 
-    public ElementoSql(Integer linha) {
+    public ElementoSql(int linha) {
         this.linha = linha;
     }
 
@@ -16,7 +16,7 @@ public class ElementoSql {
         this.tipoDados = coluna.getTipo();
 
         if (tipoDados.contemNumeroElementos()) {
-            if (celula.length() <= this.tipoDados.getNumeroElementosInteger()) {
+            if (celula.length() <= this.tipoDados.getNumeroElementos()) {
 
                 this.celula = celula;
             }else{
@@ -35,5 +35,13 @@ public class ElementoSql {
 
     public TipoDados getTipoDados() {
         return tipoDados;
+    }
+
+    public int getLinha() {
+        return linha;
+    }
+
+    public void setCelula(String celula) {
+        this.celula = celula;
     }
 }

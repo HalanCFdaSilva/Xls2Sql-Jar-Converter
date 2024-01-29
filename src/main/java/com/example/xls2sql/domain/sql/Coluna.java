@@ -5,6 +5,7 @@ import com.example.xls2sql.sql.exceptions.TextoColunaVaziaException;
 public class Coluna {
 
 
+
     private String nome;
 
      private TipoDados tipo;
@@ -18,6 +19,8 @@ public class Coluna {
     }
 
     public void adicionar(String textoCelulaExcel, int colunaExcel){
+
+
 
         if (textoCelulaExcel.length() != 0 && textoCelulaExcel.contains("[")){
             int numeroInicioColchetes = textoCelulaExcel.indexOf("[");

@@ -5,6 +5,7 @@ import com.example.xls2sql.domain.sql.Coluna;
 import com.example.xls2sql.domain.sql.DadosSql;
 import com.example.xls2sql.domain.sql.ElementoSql;
 import com.example.xls2sql.domain.sql.ElementosSql;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSql;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -69,11 +70,11 @@ public class EscritorSql  {
                if (!primeiraInteracaoLaco) {
                    writer.append(",");
                }
-               if(dadoSql.getTipoDados().getTipo().equals(TipoDadosSql.VARCHAR)||dadoSql.getTipoDados().getTipo().equals(TipoDadosSql.DATETIME)){
-                   writer.append("'" + dadoSql.getCelula() + "'");
-               }else{
-                   writer.append(dadoSql.getCelula());
-               }
+//               if(dadoSql.getTipoDados().getTipo().equals(TipoDadosSql.VARCHAR)||dadoSql.getTipoDados().getTipo().equals(TipoDadosSql.DATETIME)){
+//                   writer.append("'" + dadoSql.getCelula() + "'");
+//               }else{
+//                   writer.append(dadoSql.getCelula());
+//               }
                primeiraInteracaoLaco = false;
            }
            writer.append(");");
