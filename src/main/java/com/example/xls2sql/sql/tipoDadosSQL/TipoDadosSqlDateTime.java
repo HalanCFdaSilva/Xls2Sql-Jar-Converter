@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 
 public enum TipoDadosSqlDateTime implements TipoDadosSql{
     DATE,
@@ -47,8 +49,8 @@ public enum TipoDadosSqlDateTime implements TipoDadosSql{
         }
 
         boolean elementoDentroDasRegras = false;
-        String REGEX_TIME = "(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d$";
-        final String REGEX_DATE = "^[1-9][0-9]{3}\\/(((0[13578]|(10|12))\\/(0[1-9]|[1-2][0-9]|3[0-1]))|(02\\/(0[1-9]|[1-2][0-9]))|((0[469]|11)\\/(0[1-9]|[1-2][0-9]|30)))$";
+        String REGEX_TIME = "(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d";
+        final String REGEX_DATE = "^[1-9][0-9]{3}\\/(((0[13578]|(10|12))\\/(0[1-9]|[1-2][0-9]|3[0-1]))|(02\\/(0[1-9]|[1-2][0-9]))|((0[469]|11)\\/(0[1-9]|[1-2][0-9]|30)))";
 
         switch ((TipoDadosSqlDateTime)elementoSql.getTipoDados().getTipo()){
 
@@ -57,9 +59,51 @@ public enum TipoDadosSqlDateTime implements TipoDadosSql{
 
             }
 
-            case DATETIME,TIMESTAMP: {
-                String  regexDateTime= REGEX_DATE + REGEX_TIME;
+            case DATETIME: {
+                String  regexDateTime= REGEX_DATE + REGEX_TIME + "$";
                 elementoDentroDasRegras = elementoSql.getCelula().matches(regexDateTime);
+            }
+
+            case TIMESTAMP:{
+                String  regexDateTime= REGEX_DATE + REGEX_TIME;
+                if (elementoSql.getCelula().matches(regexDateTime)){
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss[ VV]");
+                    ZonedDateTime dateTimeElementoSql;
+
+                    Set<String> zoneIds= ZoneId.getAvailableZoneIds();
+                    boolean possuiZoneId = false;
+                    for (String zone : zoneIds) {
+                        if (elementoSql.getCelula().contains(zone)){
+                            possuiZoneId = true;
+                        }
+                    }
+
+                    if (possuiZoneId){
+                        dateTimeElementoSql = ZonedDateTime.parse(elementoSql.getCelula(),formatter);
+                   }else {
+                        dateTimeElementoSql = ZonedDateTime.parse(elementoSql.getCelula() + ZoneId.systemDefault(),formatter);
+                    }
+
+                    ZonedDateTime zonedDateTimeLimit = ZonedDateTime.parse("2038/01/09 03:14:07 UTC",formatter);
+                    if (dateTimeElementoSql.toEpochSecond() >= 0 && zonedDateTimeLimit.isBefore(dateTimeElementoSql)){
+                        elementoDentroDasRegras = true;
+
+                    }
+
+                }else{
+                    ArrayList<String> arrayList = new ArrayList<>();
+                    arrayList.add("CURRENT_TIMESTAMP");
+
+                    for (String textoSql: arrayList){
+                        if (elementoSql.getCelula().equalsIgnoreCase(textoSql)){
+                            elementoDentroDasRegras = true;
+                        }
+
+                    }
+
+                }
+
             }
 
             case YEAR:{
