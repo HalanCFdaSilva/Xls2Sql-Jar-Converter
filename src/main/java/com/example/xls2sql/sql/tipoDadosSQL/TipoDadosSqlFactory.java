@@ -9,6 +9,8 @@ public class TipoDadosSqlFactory {
 
     public  TipoDadosSql generate(String celulaSegundaLinhaExcel, int colunaexcel){
 
+        celulaSegundaLinhaExcel  = celulaSegundaLinhaExcel.strip();
+
         TipoDadosSql tipoDadosSql = null;
         tipoDadosSql = this.generateSqlNumeric(celulaSegundaLinhaExcel);
 
@@ -20,6 +22,8 @@ public class TipoDadosSqlFactory {
             }
         }
 
+        System.out.println(celulaSegundaLinhaExcel);
+        System.out.println(tipoDadosSql);
 
         if (tipoDadosSql == null){
             throw new TipoDadoSqlNaoEncontradoException(colunaexcel);

@@ -11,9 +11,9 @@ public class TipoDados {
 
 
 
-    private TipoDadosSql tipo;
-    private int [] numeroElementos;
-    int coluna;
+    private final TipoDadosSql tipo;
+    private double numeroElementos;
+    private final int coluna;
 
     public TipoDados(String celulaSegundaLinhaExcel,int colunaexcel) {
 
@@ -29,36 +29,13 @@ public class TipoDados {
 
         TipoDadosSqlFactory factoryTipoDadosSql = new TipoDadosSqlFactory();
         tipo = factoryTipoDadosSql.generate(celulaSegundaLinhaExcel,colunaexcel);
-        this.numeroElementos = new int[tipo.aceitaNumeroElementos()];
 
+        if (numeroElementosString != null && this.tipo.aceitaNumeroElementos()){
+            this.numeroElementos = Double.parseDouble(numeroElementosString);
 
-        if (numeroElementosString != null){
-            int i = 0;
-
-            while(this.numeroElementos.length >= i){
-
-                this.numeroElementos[i] = 0;
-                while ( numeroElementosString.contains(",")){
-
-                    int indexVirgula = numeroElementosString.indexOf(",");
-                    String primeiroNumero = numeroElementosString.substring(0, indexVirgula);
-                    this.numeroElementos[i] = Integer.parseInt(primeiroNumero);
-                    numeroElementosString = numeroElementosString.substring(indexVirgula + 1);
-
-                    i++;
-                }
-
-                if(numeroElementosString !=null ){
-                    this.numeroElementos[i] = Integer.parseInt(numeroElementosString);
-                    numeroElementosString = null;
-                }
-                i++;
-            }
-
-
+        }else if (numeroElementosString == null){
+            this.numeroElementos = 0;
         }
-
-
 
         this.coluna = colunaexcel;
 
@@ -73,25 +50,24 @@ public class TipoDados {
     }
 
     public String getNumeroElementosString() {
-        return "(" + numeroElementos + ")";
-    }
-
-    public int getNumeroElementos() {
-        if (contemNumeroElementos()){
-            return this.numeroElementos[1];
+        String texto = Double.toString(numeroElementos);
+        int posicaoVirgula = texto.indexOf(".");
+        String textoPosvirgula = texto.substring(posicaoVirgula + 1);
+        if (textoPosvirgula.matches("^0$")){
+            String textoAntesVirgula = texto.substring(0,posicaoVirgula);
+            return "(" + textoAntesVirgula + ")";
+        }else {
+            return "(" + texto + ")";
         }
-        return 0;
-    }
-
-    public int getNumeroElementos(int index){
-        return this.numeroElementos[index];
 
     }
 
+    public double getNumeroElementos() {
+        return this.numeroElementos;
+    }
 
     public boolean contemNumeroElementos() {
-
-        if (numeroElementos.length != 0){
+        if (numeroElementos != 0){
             return true;
         }
         return false;

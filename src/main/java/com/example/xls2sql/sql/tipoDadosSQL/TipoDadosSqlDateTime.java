@@ -23,8 +23,8 @@ public enum TipoDadosSqlDateTime implements TipoDadosSql{
     ;
 
     @Override
-    public int aceitaNumeroElementos() {
-        return 0;
+    public boolean aceitaNumeroElementos() {
+        return false;
     }
 
     @Override

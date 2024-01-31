@@ -1,12 +1,13 @@
 package com.example.xls2sql.domain.sql;
 
+import com.example.xls2sql.sql.exceptions.CelulaComElementosNaoConversiveisException;
 import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColuna;
 
 public class ElementoSql {
 
     private String celula;
     private TipoDados tipoDados;
-    private int linha;
+    private final int linha;
 
     public ElementoSql(int linha) {
         this.linha = linha;
@@ -26,6 +27,10 @@ public class ElementoSql {
         }else {
 
             this.celula = celula;
+        }
+
+        if(!this.tipoDados.getTipo().verificarCelula(this)){
+            throw new CelulaComElementosNaoConversiveisException(this.linha, this.tipoDados.getColuna());
         }
     }
 

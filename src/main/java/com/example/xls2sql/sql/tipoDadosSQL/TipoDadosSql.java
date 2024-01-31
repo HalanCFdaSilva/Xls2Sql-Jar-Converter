@@ -7,7 +7,7 @@ public interface TipoDadosSql {
 
 
 
-    int aceitaNumeroElementos();
+    boolean aceitaNumeroElementos();
 
     boolean verificarCelula(ElementoSql elementoSql);
 

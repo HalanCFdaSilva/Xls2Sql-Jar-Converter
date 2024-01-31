@@ -22,12 +22,12 @@ public enum TipoDadosSQLString implements TipoDadosSql{
 
 
     @Override
-    public int aceitaNumeroElementos() {
+    public boolean aceitaNumeroElementos() {
         switch (this){
 
-            case TINYTEXT,MEDIUMTEXT,LONGTEXT,MEDIUMBLOB,LONGBLOB: return 0;
+            case TINYTEXT,MEDIUMTEXT,LONGTEXT,MEDIUMBLOB,LONGBLOB: return false;
 
-            default : return 1;
+            default : return true;
 
         }
     }

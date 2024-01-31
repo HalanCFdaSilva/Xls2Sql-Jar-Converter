@@ -2,11 +2,10 @@ package com.example.xls2sql;
 
 import com.example.xls2sql.coletor.ColetorUsuario;
 import com.example.xls2sql.domain.sql.DadosSql;
-import com.example.xls2sql.sql.EscritorSql;
+import com.example.xls2sql.sql.escritor.EscritorSql;
 import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColuna;
 import com.example.xls2sql.xls.LeitorXls;
-import java.awt.*;
-import java.io.File;
+
 import java.io.IOException;
 
 
