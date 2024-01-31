@@ -3,9 +3,7 @@ package com.example.xls2sql.sql.escritor;
 import com.example.xls2sql.domain.InfoUsuario;
 import com.example.xls2sql.domain.sql.Coluna;
 import com.example.xls2sql.domain.sql.DadosSql;
-import com.example.xls2sql.domain.sql.ElementoSql;
 import com.example.xls2sql.domain.sql.ElementosSql;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,7 +39,12 @@ public class EscritorSql  {
             writer.append(coluna.getNome() + " " +
                     coluna.getTipo().getTipo() );
             if (coluna.getTipo().contemNumeroElementos()){
-                writer.append(coluna.getTipo().getNumeroElementosString());
+                if (coluna.getTipo().getNumeroElementosString().contains(".")){
+                    String numeroElementos = coluna.getTipo().getNumeroElementosString().replace(".", ",");
+                    writer.append(numeroElementos);
+                }else{
+                    writer.append(coluna.getTipo().getNumeroElementosString());
+                }
             }
 
             primeiraInteracaoLaco = false;
@@ -55,8 +58,11 @@ public class EscritorSql  {
     private void IncluirElemento() throws IOException {
         EscritorTextoLinha escritorLinha = new EscritorTextoLinha();
         for(ElementosSql elementosSql : dadosSql.getElementos()){
+            
             writer.append(escritorLinha.textoColunaIncluirLinhas(dadosSql.getColunas(), usuario.getNomeTabela()));
+
             writer.append(escritorLinha.textoElementosLinha(elementosSql));
+
             this.pularLinha();
             this.pularLinha();
        }

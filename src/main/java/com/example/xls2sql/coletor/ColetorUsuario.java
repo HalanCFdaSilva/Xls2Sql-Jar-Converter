@@ -16,7 +16,6 @@ public class ColetorUsuario {
     public void coletar(){
         System.out.println("Digite o nome do banco de dados");
         infoUsuario.setNomeBancoDados(coletorService.pegarEscrita());
-        infoUsuario.setNomeBancoDados("bank");
 
 
         System.out.println("Digite o endereco do arquivo xls");
