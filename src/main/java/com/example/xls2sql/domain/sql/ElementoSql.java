@@ -1,7 +1,7 @@
 package com.example.xls2sql.domain.sql;
 
 import com.example.xls2sql.sql.exceptions.CelulaComElementosNaoConversiveisException;
-import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColuna;
+import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColunaException;
 
 public class ElementoSql {
 
@@ -13,7 +13,7 @@ public class ElementoSql {
         this.linha = linha;
     }
 
-    public void adicionarCelula(String celula, Coluna coluna) throws CelulaExcelComTamanhoMaiorQueOPermitidoColuna {
+    public void adicionarCelula(String celula, Coluna coluna) throws CelulaExcelComTamanhoMaiorQueOPermitidoColunaException {
         this.tipoDados = coluna.getTipo();
 
         if (tipoDados.contemNumeroElementos()) {
@@ -21,7 +21,7 @@ public class ElementoSql {
 
                 this.celula = celula;
             }else{
-                throw new CelulaExcelComTamanhoMaiorQueOPermitidoColuna(linha, coluna.getNome());
+                throw new CelulaExcelComTamanhoMaiorQueOPermitidoColunaException(linha, this.tipoDados.getColuna());
             }
 
         }else {
@@ -47,6 +47,23 @@ public class ElementoSql {
     }
 
     public void setCelula(String celula) {
-        this.celula = celula;
+        if (tipoDados != null){
+            if (tipoDados.contemNumeroElementos()) {
+                if (celula.length() <= this.tipoDados.getNumeroElementos()) {
+
+                    this.celula = celula;
+                }else{
+                    throw new CelulaExcelComTamanhoMaiorQueOPermitidoColunaException(linha, this.tipoDados.getColuna());
+                }
+
+            }else {
+
+                this.celula = celula;
+            }
+
+            if(!this.tipoDados.getTipo().verificarCelula(this)){
+                throw new CelulaComElementosNaoConversiveisException(this.linha, this.tipoDados.getColuna());
+            }
+        }
     }
 }

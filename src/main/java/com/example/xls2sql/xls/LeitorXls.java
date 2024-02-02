@@ -8,7 +8,7 @@ import com.example.xls2sql.domain.sql.Coluna;
 import com.example.xls2sql.domain.sql.DadosSql;
 import com.example.xls2sql.domain.sql.ElementoSql;
 import com.example.xls2sql.domain.sql.ElementosSql;
-import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColuna;
+import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColunaException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -24,7 +24,7 @@ public class LeitorXls {
 
     private ElementoSql elementoSql;
 
-    public DadosSql ler(String enderecoXls) throws IOException, CelulaExcelComTamanhoMaiorQueOPermitidoColuna {
+    public DadosSql ler(String enderecoXls) throws IOException, CelulaExcelComTamanhoMaiorQueOPermitidoColunaException {
 
         FileInputStream inputStream = new FileInputStream(new File(enderecoXls));
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
@@ -78,7 +78,7 @@ public class LeitorXls {
     }
 
 
-    private void adicionarElemento(Cell cell, Coluna coluna) throws CelulaExcelComTamanhoMaiorQueOPermitidoColuna {
+    private void adicionarElemento(Cell cell, Coluna coluna) throws CelulaExcelComTamanhoMaiorQueOPermitidoColunaException {
 
         switch (cell.getCellType()) {
 

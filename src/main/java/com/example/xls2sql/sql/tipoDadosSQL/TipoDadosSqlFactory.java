@@ -9,7 +9,7 @@ public class TipoDadosSqlFactory {
 
     public  TipoDadosSql generate(String celulaSegundaLinhaExcel, int colunaexcel){
 
-        celulaSegundaLinhaExcel  = celulaSegundaLinhaExcel.strip();
+        celulaSegundaLinhaExcel  = celulaSegundaLinhaExcel.replace(" ", "");
 
         TipoDadosSql tipoDadosSql = null;
         tipoDadosSql = this.generateSqlNumeric(celulaSegundaLinhaExcel);
@@ -21,9 +21,6 @@ public class TipoDadosSqlFactory {
                 tipoDadosSql = this.generateSqlDateTime(celulaSegundaLinhaExcel);
             }
         }
-
-        System.out.println(celulaSegundaLinhaExcel);
-        System.out.println(tipoDadosSql);
 
         if (tipoDadosSql == null){
             throw new TipoDadoSqlNaoEncontradoException(colunaexcel);
