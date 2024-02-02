@@ -17,6 +17,22 @@ colchetes.
     | EXEMPLO1[varchar(10)] | EXEMPLO2[int] |
     |-----------------------|---------------|
 
+    1. Os tipos de Dados compativeis são:
+
+         | Numerico  | Texto      | Data      | 
+         |-----------|------------|-----------|
+         | DECIMAL   | CHAR       | DATE      |
+         | BIT       | VARCHAR    | YEAR      |
+         | TINYINT   | TINYTEXT   | DATETIME  |
+         | SMALLINT  | TEXT       | TIMESTAMP |
+         | MEDIUMINT | MEDIUMTEXT | TIME      |
+         | INT       | LONGTEXT   |
+         | BIGINT    | BLOB       |
+         |           | MEDIUMBLOB |
+         |           | LONGBLOB   |
+    2. Caso for utilizar deve escrever o tipo de dados igual está escrito acima, com exceção que pode estar maiúsculo, minusculo e com espaçamento, isso o código consegue resolver.     
+   
+
 2. Nas linhas seguintes você vai colocar as inserções no sql sendo uma por linha obedecendo a ordem das colunas
    postas previamente e sem ultrapassar o limite de células de coluna escritas.
 
