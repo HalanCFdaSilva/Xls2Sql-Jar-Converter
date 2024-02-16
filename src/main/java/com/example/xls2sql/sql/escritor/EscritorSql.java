@@ -1,12 +1,13 @@
 package com.example.xls2sql.sql.escritor;
 
 import com.example.xls2sql.domain.InfoUsuario;
-import com.example.xls2sql.domain.sql.Coluna;
-import com.example.xls2sql.domain.sql.DadosSql;
-import com.example.xls2sql.domain.sql.ElementosSql;
+import com.example.xls2sql.sql.domain.Coluna;
+import com.example.xls2sql.sql.domain.DadosSql;
+import com.example.xls2sql.sql.domain.ElementosSql;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class EscritorSql  {
 
@@ -58,10 +59,13 @@ public class EscritorSql  {
     private void IncluirElemento() throws IOException {
         EscritorTextoLinha escritorLinha = new EscritorTextoLinha();
         for(ElementosSql elementosSql : dadosSql.getElementos()){
-            
-            writer.append(escritorLinha.textoColunaIncluirLinhas(dadosSql.getColunas(), usuario.getNomeTabela()));
+            escritorLinha.textoColunaIncluirLinhas(dadosSql.getColunas(), usuario.getNomeTabela());
+            escritorLinha.textoElementosLinha(elementosSql);
+            ArrayList<String> textoInsercaoSql = escritorLinha.getTextoAEscrever();
+            for (String textoAInserir : textoInsercaoSql){
+                writer.append(textoAInserir);
+            }
 
-            writer.append(escritorLinha.textoElementosLinha(elementosSql));
 
             this.pularLinha();
             this.pularLinha();

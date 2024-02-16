@@ -4,11 +4,10 @@ package com.example.xls2sql.xls;
 
 
 
-import com.example.xls2sql.domain.sql.Coluna;
-import com.example.xls2sql.domain.sql.DadosSql;
-import com.example.xls2sql.domain.sql.ElementoSql;
-import com.example.xls2sql.domain.sql.ElementosSql;
-import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColunaException;
+import com.example.xls2sql.sql.domain.Coluna;
+import com.example.xls2sql.sql.domain.DadosSql;
+import com.example.xls2sql.sql.domain.ElementoSql;
+import com.example.xls2sql.sql.domain.ElementosSql;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -17,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -24,7 +24,7 @@ public class LeitorXls {
 
     private ElementoSql elementoSql;
 
-    public DadosSql ler(String enderecoXls) throws IOException, CelulaExcelComTamanhoMaiorQueOPermitidoColunaException {
+    public DadosSql ler(String enderecoXls) throws IOException {
 
         FileInputStream inputStream = new FileInputStream(new File(enderecoXls));
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
@@ -33,7 +33,7 @@ public class LeitorXls {
 
 
         DadosSql dadosSql = new DadosSql();
-        Integer linhaDoExcel = 0;
+        int linhaDoExcel = 0;
 
 
         Iterator<Row> rowIterator = sheet.iterator();
@@ -58,7 +58,7 @@ public class LeitorXls {
 
 
                }else if (colunaDoExcel <= dadosSql.getColunas().size() -1) {
-                   this.elementoSql = new ElementoSql(linhaDoExcel);
+                   this.elementoSql = new ElementoSql(linhaDoExcel, colunaDoExcel);
                    this.adicionarElemento(cell, dadosSql.getColunas().get(colunaDoExcel));
                    elementosSql.adicionar(this.elementoSql);
             }
@@ -78,19 +78,56 @@ public class LeitorXls {
     }
 
 
-    private void adicionarElemento(Cell cell, Coluna coluna) throws CelulaExcelComTamanhoMaiorQueOPermitidoColunaException {
+    private void adicionarElemento(Cell cell, Coluna coluna) {
+
+        ArrayList<String> celulaAAdicionar = new ArrayList<>();
+        int i = 1;
+        int numeroLimiteAtual = 16777217*i;
+        int numeroLimiteAntigo = 0;
 
         switch (cell.getCellType()) {
 
-            case NUMERIC:
-                String celula = Integer.toString((int) cell.getNumericCellValue());
-                this.elementoSql.adicionarCelula(celula, coluna);
-                break;
+            case NUMERIC:{
+                while(Integer.toString((int) cell.getNumericCellValue()).length() >= numeroLimiteAtual){
+                    String celula = Integer.toString((int) cell.getNumericCellValue()).substring(numeroLimiteAntigo
+                            ,numeroLimiteAtual);
 
-            case STRING:
-                this.elementoSql.adicionarCelula(cell.getStringCellValue(),coluna);
-                break;
+                    celulaAAdicionar.add(celula);
+                    i++;
+                    numeroLimiteAntigo = numeroLimiteAtual;
+                    numeroLimiteAtual = 16777217*i;
+                }
+                int numerMaximo = Integer.toString((int) cell.getNumericCellValue()).length() - numeroLimiteAntigo;
+                if (numerMaximo > 0){
+                    String celula = Integer.toString((int) cell.getNumericCellValue()).substring(numeroLimiteAntigo);
+
+                    celulaAAdicionar.add(celula);
+                }
+
+
+
+            }
+
+
+            case STRING:{
+                while(Integer.toString((int) cell.getNumericCellValue()).length() >= numeroLimiteAtual){
+                    String celula = cell.getStringCellValue().substring(numeroLimiteAntigo,numeroLimiteAtual);
+                    celulaAAdicionar.add(celula);
+                    i++;
+                    numeroLimiteAntigo = numeroLimiteAtual;
+                    numeroLimiteAtual = 16777217*i;
+                }
+
+                int numerMaximo = cell.getStringCellValue().length() - numeroLimiteAntigo;
+                if (numerMaximo > 0){
+                    String celula = cell.getStringCellValue().substring(numeroLimiteAntigo);
+
+                    celulaAAdicionar.add(celula);
+                }
+            }
+
         }
+        this.elementoSql.adicionarCelula(celulaAAdicionar,coluna);
 
 
     }

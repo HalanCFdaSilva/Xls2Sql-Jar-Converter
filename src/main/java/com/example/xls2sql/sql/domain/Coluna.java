@@ -1,5 +1,6 @@
-package com.example.xls2sql.domain.sql;
+package com.example.xls2sql.sql.domain;
 
+import com.example.xls2sql.coletor.domain.TipoDados;
 import com.example.xls2sql.sql.exceptions.TextoColunaVaziaException;
 
 public class Coluna {
@@ -31,7 +32,7 @@ public class Coluna {
             if (textoSemTipoDado.contains("(")){
                 int numeroInicioParenteses = textoSemTipoDado.indexOf("(");
                 this.nome = textoSemTipoDado.substring(0,numeroInicioParenteses);
-
+                this.nome = this.nome.replace(" ","_");
             }else{
                 this.nome = textoSemTipoDado;
             }

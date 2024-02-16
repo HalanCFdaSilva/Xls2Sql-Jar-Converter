@@ -1,5 +1,6 @@
 package com.example.xls2sql.domain.sql;
 
+import com.example.xls2sql.coletor.domain.TipoDados;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
 import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
 import org.junit.jupiter.api.Assertions;

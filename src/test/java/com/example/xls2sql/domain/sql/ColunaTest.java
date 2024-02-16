@@ -1,5 +1,6 @@
 package com.example.xls2sql.domain.sql;
 
+import com.example.xls2sql.sql.domain.Coluna;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
 import com.example.xls2sql.sql.exceptions.TextoColunaVaziaException;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;

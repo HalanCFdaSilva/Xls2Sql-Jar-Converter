@@ -1,8 +1,12 @@
 package com.example.xls2sql.domain.sql;
 
+import com.example.xls2sql.sql.domain.Coluna;
+import com.example.xls2sql.sql.domain.ElementoSql;
 import com.example.xls2sql.sql.exceptions.CelulaComElementosNaoConversiveisException;
-import com.example.xls2sql.sql.exceptions.CelulaExcelComTamanhoMaiorQueOPermitidoColunaException;
+import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
 
 public class ElementoSqlTest {
     Coluna coluna;
@@ -11,14 +15,16 @@ public class ElementoSqlTest {
     public void antesCadaTeste(){
         this.coluna = new Coluna();
         this.coluna.adicionar("ingrediente[varchar(50)]",2);
-        this.elementoSql = new ElementoSql(1);
-        elementoSql.adicionarCelula("arroz",coluna);
+        this.elementoSql = new ElementoSql(1,1);
+        ArrayList<String> celula = new ArrayList();
+        celula.add("arroz");
+        elementoSql.adicionarCelula(celula,coluna);
 
     }
 
     @Test
     public  void guardaPosicaoLihaAoCriarElementoSql(){
-        ElementoSql elementoSql = new ElementoSql(1);
+        ElementoSql elementoSql = new ElementoSql(1,1);
         Assertions.assertEquals(1, elementoSql.getLinha());
     }
 
@@ -26,21 +32,17 @@ public class ElementoSqlTest {
     @Test
     public void guardaCelulaAoUsarAdicionarCelula(){
 
-        Assertions.assertEquals("arroz",elementoSql.getCelula());
+        Assertions.assertEquals("[arroz]",elementoSql.getCelula().toString());
     }
-    @Test
-    public void naoGuardaCelulaAoUsarAdicionarCelulaQuandoTipoDadosNãoDefinido(){
 
-        ElementoSql elementoSql1 = new ElementoSql(2);
-        elementoSql1.setCelula("arroz");
-        Assertions.assertEquals(null,elementoSql1.getCelula());
-    }
 
     @Test
     public void modificaCelulaAoUsarSetCelula(){
-        Assertions.assertEquals("arroz",elementoSql.getCelula());
-        elementoSql.setCelula("feijão");
-        Assertions.assertEquals("feijão",elementoSql.getCelula());
+        Assertions.assertEquals("[arroz]",elementoSql.getCelula().toString());
+        ArrayList<String> celula = new ArrayList();
+        celula.add("feijão");
+        elementoSql.setCelula(celula);
+        Assertions.assertEquals(celula.toString(),elementoSql.getCelula().toString());
     }
 
     @Test
@@ -54,18 +56,21 @@ public class ElementoSqlTest {
         for (int i = 0; i <= coluna.getTipo().getNumeroElementos() + 1; i++){
             textoMaiorQuePostoNoTipoDados += "M";
         }
+        ArrayList<String> celula = new ArrayList();
+        celula.add(textoMaiorQuePostoNoTipoDados);
 
-        String finalTextoMaiorQuePostoNoTipoDados = textoMaiorQuePostoNoTipoDados;
-        Assertions.assertThrows(CelulaExcelComTamanhoMaiorQueOPermitidoColunaException.class,() ->elementoSql.adicionarCelula(finalTextoMaiorQuePostoNoTipoDados,coluna));
-        Assertions.assertThrows(CelulaExcelComTamanhoMaiorQueOPermitidoColunaException.class,() ->elementoSql.setCelula(finalTextoMaiorQuePostoNoTipoDados));
+        Assertions.assertThrows(CelulaComElementosNaoConversiveisException.class,() ->elementoSql.adicionarCelula(celula,coluna));
+        Assertions.assertThrows(CelulaComElementosNaoConversiveisException.class,() ->elementoSql.setCelula(celula));
     }
 
     @Test
     public void daCelulaComElementosNaoConversiveisExceptionQuandoTextoAAdicionarMaiorQueGuardadoNoTipoDados(){
 
         coluna.adicionar("numero[tinyint]",2);
-        Assertions.assertThrows(CelulaComElementosNaoConversiveisException.class,() ->elementoSql.adicionarCelula("128",coluna));
-        Assertions.assertThrows(CelulaComElementosNaoConversiveisException.class,() ->elementoSql.setCelula("128"));
+        ArrayList<String> celula = new ArrayList();
+        celula.add("128");
+        Assertions.assertThrows(CelulaComElementosNaoConversiveisException.class,() ->elementoSql.adicionarCelula(celula,coluna));
+        Assertions.assertThrows(CelulaComElementosNaoConversiveisException.class,() ->elementoSql.setCelula(celula));
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.xls2sql.domain.sql;
+package com.example.xls2sql.coletor.domain;
 
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSql;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlFactory;
@@ -31,6 +31,9 @@ public class TipoDados {
         tipo = factoryTipoDadosSql.generate(celulaSegundaLinhaExcel,colunaexcel);
 
         if (numeroElementosString != null && this.tipo.aceitaNumeroElementos()){
+            if (this.tipo.equals(TipoDadosSqlNumeric.DECIMAL)&& numeroElementosString.contains(",")){
+                numeroElementosString = numeroElementosString.replace(",",".");
+            }
             this.numeroElementos = Double.parseDouble(numeroElementosString);
 
         }else if (numeroElementosString == null){

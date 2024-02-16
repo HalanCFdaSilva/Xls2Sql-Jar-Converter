@@ -1,5 +1,8 @@
 package com.example.xls2sql.domain.sql;
 
+import com.example.xls2sql.sql.domain.Coluna;
+import com.example.xls2sql.sql.domain.DadosSql;
+import com.example.xls2sql.sql.domain.ElementosSql;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

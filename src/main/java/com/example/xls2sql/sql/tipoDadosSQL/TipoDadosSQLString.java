@@ -1,9 +1,8 @@
 package com.example.xls2sql.sql.tipoDadosSQL;
 
-import com.example.xls2sql.domain.sql.ElementoSql;
 
-import java.io.File;
-import java.nio.charset.CharsetEncoder;
+import com.example.xls2sql.sql.tipoDadosSQL.tipoDadosSqlService.TipoDadosSqlStringService;
+import java.util.ArrayList;
 
 
 public enum TipoDadosSQLString implements TipoDadosSql{
@@ -33,71 +32,45 @@ public enum TipoDadosSQLString implements TipoDadosSql{
     }
 
     @Override
-    public boolean verificarCelula(ElementoSql elementoSql) {
+    public boolean verificarCelula(ArrayList<String> listaCelula, double numeroElementos) {
 
-        boolean elementoDentroDasRegras = false;
 
-        switch ((TipoDadosSQLString)elementoSql.getTipoDados().getTipo()){
+        if ((this != LONGTEXT && listaCelula.size() == 1) || this == LONGTEXT){
+            boolean elementoDentroDasRegras = false;
+            TipoDadosSqlStringService  service = new TipoDadosSqlStringService();
+            String celula = listaCelula.get(0);
 
-            case CHAR,VARCHAR: {
-                if (elementoSql.getCelula().length() <= elementoSql.getTipoDados().getNumeroElementos()){
-                    elementoDentroDasRegras = true;
-                }
-            }
+            switch (this){
 
-            case TINYTEXT: {
-                if (elementoSql.getCelula().length() <= 255){
-                    elementoDentroDasRegras = true;
-                }
-            }
+                case CHAR: return service.verificarCelulaChar(celula,numeroElementos);
 
-            case TEXT: {
-                final byte[] bytesString = elementoSql.getCelula().getBytes();
-                if (bytesString.length <= 65535){
-                    elementoDentroDasRegras = true;
-                }
-            }
+                case VARCHAR: return service.verificarCelulaVarChar(celula,numeroElementos);
 
-            case MEDIUMTEXT:{
-                if (elementoSql.getCelula().length() <= 16777215){
-                    elementoDentroDasRegras = true;
-                }
-            }
+                case TINYTEXT: return service.verificarCelulaTinyText(celula);
 
-            case LONGTEXT:{
-                if (elementoSql.getCelula().length() <= 4294967295L){
-                    elementoDentroDasRegras = true;
-                }
-            }
 
-            case BLOB: {
-                File fileString = new File(elementoSql.getCelula());
-                if (fileString.isFile() && fileString.length() <= 65535){
-                    elementoDentroDasRegras = true;
-                }
-            }
+                case TEXT: return service.verificarCelulaText(celula,numeroElementos);
 
-            case MEDIUMBLOB: {
+                case MEDIUMTEXT: return service.verificarCelulaMediumText(celula);
 
-                File fileString = new File(elementoSql.getCelula());
-                if (fileString.isFile() && fileString.length() <= 65535){
-                    elementoDentroDasRegras = true;
-                }
+                case LONGTEXT:return service.verificarCelulaLongText(listaCelula);
+
+                case BLOB: return service.verificarCelulaBlob(celula,numeroElementos);
+
+                case MEDIUMBLOB: return service.verificarCelulaMediumBlob(celula);
+
+                case LONGBLOB: return service.verificarCelulaLongBlob(celula);
+
+                default: return elementoDentroDasRegras;
+
+
 
             }
-
-            case LONGBLOB:{
-                File fileString = new File(elementoSql.getCelula());
-                if (fileString.isFile() && fileString.length() <=  4294967295L){
-                    elementoDentroDasRegras = true;
-                }
-            }
-
-
-
         }
 
-        return elementoDentroDasRegras;
+        return false;
 
     }
+
+
 }
