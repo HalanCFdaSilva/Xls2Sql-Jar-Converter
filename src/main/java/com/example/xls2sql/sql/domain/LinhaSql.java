@@ -39,20 +39,40 @@ public class LinhaSql {
 
 
         if (colunas.size() > this.celulasLinha.size()){
-            for (int i = 0; i <= colunas.size();i++){
+            for (int i = 0; i < colunas.size();i++){
 
                 CelulaLinhaSql celulaAnterior = this.celulasLinha.get(0);
-                int posicaoColuna = colunas.get(0).getTipoDados().posicaoColunaXls();
+                int posicaoColuna = colunas.get(i).getTipoDados().posicaoColunaXls();
+                boolean pegou = false;
+                boolean primeiraInteracao = true;
                 for (CelulaLinhaSql celula : this.celulasLinha){
 
-                    if (celulaAnterior.getColuna() < posicaoColuna && celula.getColuna() >posicaoColuna){
-                        CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(this.linhaXls,posicaoColuna);
-                        ArrayList<String> stringNull= new ArrayList<>();
-                        stringNull.add("null");
-                        celulaLinhaSql.adicionarCelula(stringNull,colunas.get(i).getTipoDados());
-                        this.adicionar(celulaLinhaSql);
+                    if (i+1 == colunas.size()|| primeiraInteracao){
+                        if (celula == celulasLinha.get(celulasLinha.size()-1) && celula.getColuna() < posicaoColuna){
+                            pegou = true;
+                        }
+                        if (celula.getColuna() > posicaoColuna && primeiraInteracao ){
+                            pegou = true;
+                        }
+                        primeiraInteracao = false;
+                    }else{
+                        if (celulaAnterior.getColuna() < posicaoColuna && celula.getColuna() >posicaoColuna){
+                            pegou = true;
+                        }
                     }
+
+                    celulaAnterior = celula;
                 }
+
+                if (pegou){
+
+                    CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(this.linhaXls,posicaoColuna);
+                    ArrayList<String> stringNull= new ArrayList<>();
+                    stringNull.add("null");
+                    celulaLinhaSql.adicionarCelula(stringNull,colunas.get(i).getTipoDados());
+                    this.celulasLinha.add(i,celulaLinhaSql);
+                }
+
             }
 
 

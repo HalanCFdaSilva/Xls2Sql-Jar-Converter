@@ -90,21 +90,20 @@ public class LeitorXls {
 
 
         }else{
+
             if (this.colunaDoExcel <= this.dadosSql.getColunas().size() -1) {
+
                 ConversorXls conversorXls = new ConversorXls(this.colunaDoExcel,this.linhaDoExcel);
                 Coluna colunaElemento = this.dadosSql.getColunas().get(this.colunaDoExcel);
                 CelulaLinhaSql celulaLinhaSql = conversorXls.adicionarElemento(cell, colunaElemento.getTipoDados());
                 linhaSql.adicionar(celulaLinhaSql);
 
+
             }
             if (!this.linhaTemMaisUmaCelula){
-
-                for (CelulaLinhaSql celulaLinhaSql : linhaSql.getCelulasLinha()){
-                    System.out.print(celulaLinhaSql.getCelula().get(0));
-                }
-                System.out.println();
                 this.dadosSql.adicionar(linhaSql);
             }
+
         }
 
     }

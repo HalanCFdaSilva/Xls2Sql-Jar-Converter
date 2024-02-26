@@ -27,13 +27,16 @@ public enum TipoDadosSqlDateTime implements TipoDadosSql{
 
         if (listaCelula.size() == 1 ){
             String celula = listaCelula.get(0);
-            TipoDadosSqlDateTimeService service = new TipoDadosSqlDateTimeService();
 
+            if (celula == "null" || celula == " " ){
+                return true;
+            }
+
+            TipoDadosSqlDateTimeService service = new TipoDadosSqlDateTimeService();
 
             switch (this){
 
                 case DATE : return service.verificarCelulaDate(celula);
-
 
                 case DATETIME: return service.verificarCelulaDateTime(celula);
 
@@ -42,9 +45,6 @@ public enum TipoDadosSqlDateTime implements TipoDadosSql{
                 case YEAR: return service.verificarCelulaYear(celula);
 
                 case TIME: return service.verificarCelulaTime(celula);
-
-
-
 
             }
         }

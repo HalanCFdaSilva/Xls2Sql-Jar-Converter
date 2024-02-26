@@ -37,8 +37,12 @@ public enum TipoDadosSQLString implements TipoDadosSql{
 
         if ((this != LONGTEXT && listaCelula.size() == 1) || this == LONGTEXT){
             boolean elementoDentroDasRegras = false;
-            TipoDadosSqlStringService  service = new TipoDadosSqlStringService();
             String celula = listaCelula.get(0);
+            if (celula == "null" || celula == " " ){
+                return true;
+            }
+
+            TipoDadosSqlStringService  service = new TipoDadosSqlStringService();
 
             switch (this){
 

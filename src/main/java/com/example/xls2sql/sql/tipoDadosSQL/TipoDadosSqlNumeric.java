@@ -31,8 +31,12 @@ public enum TipoDadosSqlNumeric implements TipoDadosSql {
 
     @Override
     public boolean verificarCelula(ArrayList<String> listaCelula, double numeroElementos) {
+
         if (listaCelula.size() == 1 ) {
             String celula = listaCelula.get(0);
+            if (celula == "null" || celula == " " ){
+                return true;
+            }
             TipoDadosSqlNumericService service = new TipoDadosSqlNumericService(numeroElementos);
 
             switch (this) {
