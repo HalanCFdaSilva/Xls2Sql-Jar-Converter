@@ -29,22 +29,22 @@ public class ColunaTest {
     public void adicionarTipoDadoSemTamanhoDeElementosNaColuna(){
 
         coluna.adicionar("Pratos[int]",1);
-        Assertions.assertEquals(TipoDadosSqlNumeric.INT, coluna.getTipo().getTipo());
+        Assertions.assertEquals(TipoDadosSqlNumeric.INT, coluna.getTipoDados().tipoDadosSql());
     }
 
     @Test
     public void adicionarTipoDadoComTipoTodoEmMaiusculoNaString(){
 
         coluna.adicionar("Pratos[INT]",1);
-        Assertions.assertEquals(TipoDadosSqlNumeric.INT, coluna.getTipo().getTipo());
+        Assertions.assertEquals(TipoDadosSqlNumeric.INT, coluna.getTipoDados().tipoDadosSql());
     }
 
     @Test
     public void adicionarTipoDadoENumeroElementosNaColuna(){
 
         coluna.adicionar("Pratos[varchar(10)]",1);
-        Assertions.assertEquals(TipoDadosSQLString.VARCHAR, coluna.getTipo().getTipo());
-        Assertions.assertEquals(10, coluna.getTipo().getNumeroElementos());
+        Assertions.assertEquals(TipoDadosSQLString.VARCHAR, coluna.getTipoDados().tipoDadosSql());
+        Assertions.assertEquals(10, coluna.getTipoDados().numeroElementos());
     }
 
     @Test

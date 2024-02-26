@@ -1,8 +1,8 @@
 package com.example.xls2sql.domain.sql;
 
 import com.example.xls2sql.sql.domain.Coluna;
-import com.example.xls2sql.sql.domain.DadosSql;
-import com.example.xls2sql.sql.domain.ElementosSql;
+import com.example.xls2sql.sql.DadosSql;
+import com.example.xls2sql.sql.domain.LinhaSql;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,11 +20,11 @@ public class DadosSqlTest {
 
     @Test
     public void adicionarElementoSql() {
-        ElementosSql elementosSql = new ElementosSql();
+        LinhaSql linhaSql = new LinhaSql(1);
         DadosSql dadosSql = new DadosSql();
-        dadosSql.adicionar(elementosSql);
+        dadosSql.adicionar(linhaSql);
 
-        Assertions.assertEquals(elementosSql,dadosSql.getElementos().get(0));
+        Assertions.assertEquals(linhaSql,dadosSql.getAgregadorElementosSql().get(0));
     }
 
 

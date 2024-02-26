@@ -1,10 +1,7 @@
 package com.example.xls2sql.sql.tipoDadosSql;
 
-import com.example.xls2sql.sql.domain.ElementoSql;
-import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSql;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -207,7 +204,7 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoTextVerificarCelulaComTamanhoDaStringIgualPermitido(){
         ArrayList<String> celula = new ArrayList<>();
 
-        String texto = "asa";
+        String texto = "";
         for (int i = 1;i<=65535;i++){
             texto += "a";
         }
@@ -391,7 +388,7 @@ public class TipoDadosSqlStringTest {
 //  BLOB
 
     @Test
-    public void retornaTrueAoBlobVerificarCelulaComTamanhoDaStringMenorPermitido(){
+    public void retornaTrueAoBlobVerificarCelulaComTamanhoMenorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto pequeno.txt");
         TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
@@ -400,7 +397,7 @@ public class TipoDadosSqlStringTest {
 
 
     @Test
-    public void retornaFalseAoBlobVerificarCelulaComTamanhoDaStringMaiorPermitido(){
+    public void retornaFalseAoBlobVerificarCelulaComTamanhoMaiorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.txt");
         TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
@@ -416,7 +413,7 @@ public class TipoDadosSqlStringTest {
     }
 
     @Test
-    public void retornaTrueAoBlobVerificarCelulaComTamanhoDaStringMenorPermitidoNumeroElementos(){
+    public void retornaTrueAoBlobVerificarCelulaComTamanhoMenorPermitidoNumeroElementos(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto pequeno.txt");
         TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
@@ -424,12 +421,53 @@ public class TipoDadosSqlStringTest {
     }
 
     @Test
-    public void retornaFalseAoBlobVerificarCelulaComTamanhoDaStringMaiorPermitidoNumeroElementos(){
+    public void retornaFalseAoBlobVerificarCelulaComTamanhoMaiorPermitidoNumeroElementos(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.txt");
         TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
         Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
     }
+
+    //  MEDIUMBLOB
+
+    @Test
+    public void retornaTrueAoMediumBlobVerificarCelulaComTamanhoMenorPermitido(){
+        ArrayList celula = new ArrayList<>();
+        celula.add("src/main/resources/texto grande.txt");
+        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMBLOB;
+        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+    }
+
+
+    @Test
+    public void retornafalseAoMediumBlobNaoEncontrarArquivo(){
+        ArrayList celula = new ArrayList<>();
+        celula.add("src/main/resources/texto grande.jpeg");
+        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMBLOB;
+        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+    }
+
+    //  LONGBLOB
+
+    @Test
+    public void retornaTrueAoLongBlobVerificarCelulaComTamanhoMenorPermitido(){
+        ArrayList celula = new ArrayList<>();
+        celula.add("src/main/resources/texto grande.txt");
+        TipoDadosSql tipoDadosSql = TipoDadosSQLString.LONGBLOB;
+        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+    }
+
+
+
+    @Test
+    public void retornafalseAoLongBlobNaoEncontrarArquivo(){
+        ArrayList celula = new ArrayList<>();
+        celula.add("src/main/resources/texto grande.jpeg");
+        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMBLOB;
+        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+    }
+
+
 
 
 

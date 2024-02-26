@@ -3,7 +3,7 @@ package com.example.xls2sql.sql.tipoDadosSql;
 import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlDateTime;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlFactory;
+import com.example.xls2sql.sql.factorys.TipoDadosSqlFactory;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,50 +1,89 @@
 package com.example.xls2sql.sql.escritor;
 
-import com.example.xls2sql.domain.InfoUsuario;
+import com.example.xls2sql.coletor.domain.InfoUsuario;
 import com.example.xls2sql.sql.domain.Coluna;
-import com.example.xls2sql.sql.domain.DadosSql;
-import com.example.xls2sql.sql.domain.ElementosSql;
-import java.io.File;
+import com.example.xls2sql.sql.DadosSql;
+import com.example.xls2sql.sql.domain.LinhaSql;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**Classe que faz a escrita do arquivo sql.
+ * @author Halan Silva*/
 public class EscritorSql  {
 
-    private DadosSql dadosSql;
-    private InfoUsuario usuario;
-    private FileWriter writer;
+    /** Esta variável guarda os dados contidos no arquivo xls/xlsx já preparados para ser incluso no sql*/
+    private final DadosSql dadosSql;
+
+    /**Esta variável guarda o nome do banco de dados aonde será salvo os registros.*/
+    private final String nomeBancoDados;
+
+    /**Esta variável guarda o nome da tabela dentro do banco de dados onde será salvo os registros.*/
+    private final String nomeTabela;
+    /**Esta variável é que faz a escrita do arquivo Xls.*/
+    private final FileWriter writer;
 
 
 
-    public EscritorSql(DadosSql Dados, InfoUsuario usuario) throws IOException {
+    /**Método gerador o qual já instância todas as variáveis da classe.
+     * @param Dados Este parâmetro é copiado para a variável dadosSql e deve conter todos os dados do arquivo xls/xlsx.
+     * @param usuario <p>Parâmetro que guarda todos os dados da interação do usuário com o programa, dele será retirado
+     *               as variáveis nomeBancoDados e nomeTabela e serão copiados para as variáveis de mesmo nome do EscritorSql.</p>*/
+    public EscritorSql(DadosSql Dados, @NotNull InfoUsuario usuario) throws IOException {
         this.dadosSql = Dados;
-       this.usuario = usuario;
-        this.writer = new FileWriter(new File(usuario.getEnderecoSql() + usuario.getNomeTabela() + ".sql"));
+       this.nomeBancoDados = usuario.getNomeBancoDados();
+       this.nomeTabela = usuario.getNomeTabela();
+        this.writer = new FileWriter(usuario.getEnderecoSql() + usuario.getNomeTabela() + ".sql");
 
     }
 
-    public void usarBancoDedados() throws IOException {
+    /**Método que faz a integração entre os métodos internos e faz toda a escrita sql e fecha o escritor.*/
+    public void escreverBancoDados() {
 
-        writer.write("use " + usuario.getNomeBancoDados() + ";\n");
+
+        try {
+            this.usarBancoDedados();
+            this.pularLinha();
+            this.criarTabela();
+            this.pularLinha();
+            this.IncluirElemento();
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("Um erro aconteceu durante a escrita do arquivoSql.\n Por favor, tente novamente.");
+        }
 
     }
 
+    /**Método interna que faz a escrita do código sql para selecionar o banco de dados a ser usado.*/
+    private void usarBancoDedados() throws IOException {
+
+        writer.write("use " + this.nomeBancoDados + ";");
+        this.pularLinha();
+
+    }
+
+    /**Método interno que faz a escrita do código sql para criar a tabela.*/
     private void criarTabela() throws IOException {
-        writer.write("CREATE TABLE " + usuario.getNomeTabela() + "(" );
+        writer.write("CREATE TABLE " + this.nomeTabela + "(" );
         boolean primeiraInteracaoLaco = true;
         for (Coluna coluna : dadosSql.getColunas()){
             if(!primeiraInteracaoLaco){
                 writer.append(",");
             }
-            writer.append(coluna.getNome() + " " +
-                    coluna.getTipo().getTipo() );
-            if (coluna.getTipo().contemNumeroElementos()){
-                if (coluna.getTipo().getNumeroElementosString().contains(".")){
-                    String numeroElementos = coluna.getTipo().getNumeroElementosString().replace(".", ",");
-                    writer.append(numeroElementos);
+            writer.append(coluna.getNome() + " " + coluna.getTipoDados().tipoDadosSql());
+            if (coluna.getTipoDados().contemNumeroElementos()){
+                if (coluna.getTipoDados().tipoDadosSql() == TipoDadosSqlNumeric.DECIMAL){
+
+                    String numeroElementos = Double.toString(coluna.getTipoDados().numeroElementos()).replace(".", ",");
+                    writer.append("(" + numeroElementos + ")");
                 }else{
-                    writer.append(coluna.getTipo().getNumeroElementosString());
+
+                    String textoAEscrever = "(" + (int)coluna.getTipoDados().numeroElementos() + ")";
+                    writer.append(textoAEscrever);
                 }
             }
 
@@ -56,11 +95,13 @@ public class EscritorSql  {
 
     }
 
+    /**Método interno que com a ajuda da classe {@link EscritorTextoLinha EscritorTextoLinha}  faz a escrita das linhas do sql.*/
     private void IncluirElemento() throws IOException {
-        EscritorTextoLinha escritorLinha = new EscritorTextoLinha();
-        for(ElementosSql elementosSql : dadosSql.getElementos()){
-            escritorLinha.textoColunaIncluirLinhas(dadosSql.getColunas(), usuario.getNomeTabela());
-            escritorLinha.textoElementosLinha(elementosSql);
+        for(LinhaSql linhaSql : dadosSql.getAgregadorElementosSql()){
+
+            EscritorTextoLinha escritorLinha = new EscritorTextoLinha();
+            escritorLinha.textoColunaIncluirLinhas(this.dadosSql.getColunas(), this.nomeTabela);
+            escritorLinha.textoElementosLinha(linhaSql);
             ArrayList<String> textoInsercaoSql = escritorLinha.getTextoAEscrever();
             for (String textoAInserir : textoInsercaoSql){
                 writer.append(textoAInserir);
@@ -71,18 +112,8 @@ public class EscritorSql  {
             this.pularLinha();
        }
     }
-    public void escreverBancoDados() throws IOException {
 
-
-        this.usarBancoDedados();
-        this.pularLinha();
-        this.criarTabela();
-        this.pularLinha();
-        this.IncluirElemento();
-        writer.close();
-
-    }
-
+    /**Método interno que pula uma linha no texto escrito do sql.*/
     private void pularLinha() throws IOException {
         writer.write("\n");
     }
