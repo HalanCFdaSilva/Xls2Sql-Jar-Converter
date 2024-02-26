@@ -35,6 +35,13 @@ public class LinhaSql {
         return celulasLinha;
     }
 
+
+    /**
+     * Método utilizado para preencher as celulas vazias das colunas, as quais não terão dados inseridos no sql.
+     *
+     * @param colunas Arraylist com todas as colunas sql presentes no arquivo xls/xlsx para comparar se na posição da coluna
+     *                possui alguma celula correspondente.
+     */
     public void incluirNull(ArrayList<Coluna> colunas){
 
 
@@ -43,28 +50,28 @@ public class LinhaSql {
 
                 CelulaLinhaSql celulaAnterior = this.celulasLinha.get(0);
                 int posicaoColuna = colunas.get(i).getTipoDados().posicaoColunaXls();
-                boolean pegou = false;
-                boolean primeiraInteracao = true;
+                boolean celulaNull = false;
+                boolean primeiraInteracaoCelula = true;
                 for (CelulaLinhaSql celula : this.celulasLinha){
 
-                    if (i+1 == colunas.size()|| primeiraInteracao){
+                    if (i+1 == colunas.size()|| primeiraInteracaoCelula){
                         if (celula == celulasLinha.get(celulasLinha.size()-1) && celula.getColuna() < posicaoColuna){
-                            pegou = true;
+                            celulaNull = true;
                         }
-                        if (celula.getColuna() > posicaoColuna && primeiraInteracao ){
-                            pegou = true;
+                        if (celula.getColuna() > posicaoColuna && primeiraInteracaoCelula ){
+                            celulaNull = true;
                         }
-                        primeiraInteracao = false;
+                        primeiraInteracaoCelula = false;
                     }else{
                         if (celulaAnterior.getColuna() < posicaoColuna && celula.getColuna() >posicaoColuna){
-                            pegou = true;
+                            celulaNull = true;
                         }
                     }
 
                     celulaAnterior = celula;
                 }
 
-                if (pegou){
+                if (celulaNull){
 
                     CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(this.linhaXls,posicaoColuna);
                     ArrayList<String> stringNull= new ArrayList<>();
@@ -75,8 +82,28 @@ public class LinhaSql {
 
             }
 
-
         }
+
+
+
+
+    }
+
+    /**Método que retorna uma celulaLinhaSql a partir da sua posição no eixo x do arquivo xls/xlsx.
+     * @param posicaoColuna posição no eixo x no arquivo xls/xlsx da celula a ser encontrada.
+     * @return Retorna uma instância da classe CelulaLinhaSql referente a celula vinculada
+     * a coluna passada naquela linha.
+     * @see CelulaLinhaSql*/
+
+    public CelulaLinhaSql getCelula(int posicaoColuna){
+        CelulaLinhaSql celulaLinhaSqlARetornar = null;
+        for (CelulaLinhaSql celulaLinhaSql : this.getCelulasLinha()){
+            if (celulaLinhaSql.getColuna() == posicaoColuna) {
+                celulaLinhaSqlARetornar = celulaLinhaSql;
+                break;
+            }
+        }
+        return celulaLinhaSqlARetornar;
 
     }
 }

@@ -99,9 +99,9 @@ public class EscritorSql  {
     private void IncluirElemento() throws IOException {
         for(LinhaSql linhaSql : dadosSql.getAgregadorElementosSql()){
 
-            EscritorTextoLinha escritorLinha = new EscritorTextoLinha();
+            EscritorTextoLinha escritorLinha = new EscritorTextoLinha(linhaSql);
             escritorLinha.textoColunaIncluirLinhas(this.dadosSql.getColunas(), this.nomeTabela);
-            escritorLinha.textoElementosLinha(linhaSql);
+            escritorLinha.textoElementosLinha();
             ArrayList<String> textoInsercaoSql = escritorLinha.getTextoAEscrever();
             for (String textoAInserir : textoInsercaoSql){
                 writer.append(textoAInserir);

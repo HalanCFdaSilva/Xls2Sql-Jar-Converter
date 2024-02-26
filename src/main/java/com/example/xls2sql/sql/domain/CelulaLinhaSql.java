@@ -93,4 +93,14 @@ public class CelulaLinhaSql extends AcondicionadoresTipoDados {
 
 
     }
+
+    /**Método que verifica se a celula possui dados a serem inseridos ou não.
+     * @return Retorna true se a celula não tiver dados a serem inseridos e retorna false se tiver dados a serem inseridos.*/
+    public boolean isNull() {
+        if (this.getCelula().get(0).equals("null")||this.getCelula().get(0).equals(" ")){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

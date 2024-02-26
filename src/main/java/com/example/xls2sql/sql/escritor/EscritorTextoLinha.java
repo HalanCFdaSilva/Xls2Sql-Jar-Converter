@@ -18,9 +18,14 @@ public class EscritorTextoLinha {
     /**Variável onde será armazenado a string com o código que será usado no {@link EscritorSql EscritorSql}*/
     ArrayList<String > textoAEscrever;
 
+    /**Variável com todos os dados a serem inseridos na linha.
+     * @see LinhaSql*/
+    LinhaSql linhaSql;
+
     /**Método gerador da classe sql.*/
-    public EscritorTextoLinha() {
+    public EscritorTextoLinha(LinhaSql linhaSql) {
         this.textoAEscrever = new ArrayList<>();
+        this.linhaSql = linhaSql;
     }
 
     /**Método que faz a inclusão na variável textoAEscrever o código sql com os dados da tabela para inserir uma
@@ -33,11 +38,15 @@ public class EscritorTextoLinha {
         StringBuilder textoColuna = new StringBuilder();
         boolean primeiraInteracaoLaco = true;
         for (Coluna coluna : colunas) {
-            if (!primeiraInteracaoLaco) {
-                textoColuna.append(",");
+
+            if (!this.linhaSql.getCelula(coluna.getTipoDados().posicaoColunaXls()).isNull()){
+                if (!primeiraInteracaoLaco) {
+                    textoColuna.append(",");
+                }
+                textoColuna.append(coluna.getNome());
+                primeiraInteracaoLaco = false;
             }
-            textoColuna.append(coluna.getNome());
-            primeiraInteracaoLaco = false;
+
         }
         this.textoAEscrever.add(textoColuna.toString());
 
@@ -48,33 +57,33 @@ public class EscritorTextoLinha {
      * inseridas na linha.
      * <p>O método também faz a separação das células da linha entre os tipos de dados do sql:</p>
      * <p>(String, Numeric, DateTime)</p>
-     * Chamando o método interno certo para os diferentes códigos para cada um dos tipos.
-     *
-     * @param linhaSql Parâmetro com todos os dados a serem inseridos na linha.*/
-    public void textoElementosLinha(LinhaSql linhaSql){
+     * Chamando o método interno certo para os diferentes códigos para cada um dos tipos.*/
+    public void textoElementosLinha(){
 
 
         this.textoAEscrever.add(")\nVALUES(");
         boolean primeiraInteracaoLaco = true;
         for (CelulaLinhaSql celulaLinhaSql : linhaSql.getCelulasLinha()) {
-            if (!primeiraInteracaoLaco) {
-                this.textoAEscrever.add(",");
-            }
+            if (!celulaLinhaSql.isNull()){
+                if (!primeiraInteracaoLaco) {
+                    this.textoAEscrever.add(",");
+                }
 
-            if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSqlNumeric")){
-                this.textoAEscrever.add(this.escreverElementoNumeric(celulaLinhaSql));
-            }
+                if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSqlNumeric")){
+                    this.textoAEscrever.add(this.escreverElementoNumeric(celulaLinhaSql));
+                }
 
-            if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSQLString")){
-                ArrayList<String> textoCelula = this.escreverElementoString(celulaLinhaSql);
-                this.textoAEscrever.addAll(textoCelula);
+                if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSQLString")){
+                    ArrayList<String> textoCelula = this.escreverElementoString(celulaLinhaSql);
+                    this.textoAEscrever.addAll(textoCelula);
 
-            }
+                }
 
-            if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSqlDateTime")){
-                this.textoAEscrever.add(this.escreverElementoDateTime(celulaLinhaSql));
+                if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSqlDateTime")){
+                    this.textoAEscrever.add(this.escreverElementoDateTime(celulaLinhaSql));
+                }
+                primeiraInteracaoLaco = false;
             }
-            primeiraInteracaoLaco = false;
         }
         this.textoAEscrever.add(");");
     }
