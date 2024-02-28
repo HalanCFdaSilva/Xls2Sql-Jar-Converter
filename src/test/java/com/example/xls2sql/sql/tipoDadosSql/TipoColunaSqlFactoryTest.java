@@ -1,6 +1,6 @@
 package com.example.xls2sql.sql.tipoDadosSql;
 
-import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
+import com.example.xls2sql.sql.exceptions.TipoColunaSqlNaoEncontradoException;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSQLString;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlDateTime;
 import com.example.xls2sql.sql.factorys.TipoDadosSqlFactory;
@@ -29,7 +29,7 @@ public class TipoColunaSqlFactoryTest {
     @Test
     public void lancaTipoDadoSqlNaoEncontradoExceptionQuandoNomeTipoDadosNaoEncontrado(){
         Assertions.assertDoesNotThrow(() -> factory.generate("bit",1));
-        Assertions.assertThrows(TipoDadoSqlNaoEncontradoException.class, () -> factory.generate("bygInt",1) );
+        Assertions.assertThrows(TipoColunaSqlNaoEncontradoException.class, () -> factory.generate("bygInt",1) );
     }
 
     @Test

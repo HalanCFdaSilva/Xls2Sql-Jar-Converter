@@ -1,10 +1,8 @@
 package com.example.xls2sql.sql.exceptions;
 
-import com.example.xls2sql.xls.LeitorXls;
-
 /**Exceção que é dada quando não se é possível encontrar o Tipo de dados da coluna sql no texto da coluna,
  * ou quando uma das células da linha não tem esses dados.*/
-public class TipoDadoSqlNaoEncontradoException extends RuntimeException {
+public class TipoColunaSqlNaoEncontradoException extends RuntimeException {
 
     /**Método chamador da exceção que é utilizado quando a classe coluna não consegue achar o tipo de dados
      * da coluna sql pela String do xls/xlsx.
@@ -12,7 +10,7 @@ public class TipoDadoSqlNaoEncontradoException extends RuntimeException {
      * @param colunaExcel posição no eixo x da célula no arquivo xls/xlsx.
      * @see com.example.xls2sql.sql.domain.Coluna
      * @see com.example.xls2sql.sql.factorys.TipoDadosFactory*/
-    public TipoDadoSqlNaoEncontradoException(int colunaExcel) {
+    public TipoColunaSqlNaoEncontradoException(int colunaExcel) {
         super("O tipo de dados especificado na coluna " + (colunaExcel+1) + " não foi encontrado.");
     }
 
@@ -25,7 +23,7 @@ public class TipoDadoSqlNaoEncontradoException extends RuntimeException {
      * @see com.example.xls2sql.sql.domain.CelulaLinhaSql
      * @see com.example.xls2sql.sql.domain.TipoDados
      * @see com.example.xls2sql.sql.domain.AcondicionadoresTipoDados*/
-    public TipoDadoSqlNaoEncontradoException(int linhaExcel, int colunaExcel) {
+    public TipoColunaSqlNaoEncontradoException(int linhaExcel, int colunaExcel) {
         super("Não foi possível encontrar o tipo de dado da celula na linha " + linhaExcel + " e coluna " + colunaExcel + ".");
     }
     

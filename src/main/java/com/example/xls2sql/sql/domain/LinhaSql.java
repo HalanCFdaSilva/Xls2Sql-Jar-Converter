@@ -44,7 +44,6 @@ public class LinhaSql {
      */
     public void incluirNull(ArrayList<Coluna> colunas){
 
-
         if (colunas.size() > this.celulasLinha.size()){
             for (int i = 0; i < colunas.size();i++){
 
@@ -68,6 +67,7 @@ public class LinhaSql {
                         }
                     }
 
+
                     celulaAnterior = celula;
                 }
 
@@ -80,11 +80,10 @@ public class LinhaSql {
                     this.celulasLinha.add(i,celulaLinhaSql);
                 }
 
+
             }
 
         }
-
-
 
 
     }

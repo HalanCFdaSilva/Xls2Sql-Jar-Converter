@@ -97,7 +97,7 @@ public class EscritorSql  {
 
     /**Método interno que com a ajuda da classe {@link EscritorTextoLinha EscritorTextoLinha}  faz a escrita das linhas do sql.*/
     private void IncluirElemento() throws IOException {
-        for(LinhaSql linhaSql : dadosSql.getAgregadorElementosSql()){
+        for(LinhaSql linhaSql : dadosSql.getAgregadorLinhaSql()){
 
             EscritorTextoLinha escritorLinha = new EscritorTextoLinha(linhaSql);
             escritorLinha.textoColunaIncluirLinhas(this.dadosSql.getColunas(), this.nomeTabela);

@@ -29,7 +29,16 @@ public class DadosSql {
     /**Método que adiciona uma nova coluna na variável colunas.
      * @param coluna  coluna que vai ser incluída na variável colunas.*/
     public void adicionar(Coluna coluna){
-        colunas.add(coluna);
+        boolean colunaJaSalva = false;
+        for (Coluna colunaSalva : this.getColunas()){
+            if (colunaSalva.getNome() == coluna.getNome()){
+                colunaJaSalva = true;
+                break;
+            }
+        }
+        if (!colunaJaSalva){
+            this.colunas.add(coluna);
+        }
     }
 
     /**Método que adiciona uma linhaSql na variável agregadorLinhaSql e preenche as células das colunas que não serão
@@ -37,8 +46,10 @@ public class DadosSql {
      * @param linhaSql linhaSql a ser adicionada na variável e a
      *                 checar se tem alguma coluna que não terá dados inserido por ela.*/
     public  void adicionar(LinhaSql linhaSql){
-        linhaSql.incluirNull(this.getColunas());
-        agregadorLinhaSql.add(linhaSql);
+        if (!linhaSql.getCelulasLinha().isEmpty()){
+            linhaSql.incluirNull(this.getColunas());
+            agregadorLinhaSql.add(linhaSql);
+        }
     }
 
     /**Método que retorna a variável colunas.
@@ -49,7 +60,7 @@ public class DadosSql {
 
     /**Método que retorna a variável agregadorLinhaSql.
      * @return retorna um Arraylist de {@link LinhaSql linhasSql}.*/
-    public ArrayList<LinhaSql> getAgregadorElementosSql() {
+    public ArrayList<LinhaSql> getAgregadorLinhaSql() {
         return agregadorLinhaSql;
     }
 }

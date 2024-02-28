@@ -1,1 +1,14 @@
 com.example.xls2sql
+com.example.xls2sql.coletor
+com.example.xls2sql.coletor.domain
+com.example.xls2sql.domain.sql
+com.example.xls2sql.sql
+com.example.xls2sql.sql.celulaLinhaSql
+com.example.xls2sql.sql.domain
+com.example.xls2sql.sql.escritor
+com.example.xls2sql.sql.exceptions
+com.example.xls2sql.sql.factorys
+com.example.xls2sql.sql.tipoDadosSql
+com.example.xls2sql.sql.tipoDadosSQL
+com.example.xls2sql.sql.tipoDadosSQL.tipoDadosSqlService
+com.example.xls2sql.xls

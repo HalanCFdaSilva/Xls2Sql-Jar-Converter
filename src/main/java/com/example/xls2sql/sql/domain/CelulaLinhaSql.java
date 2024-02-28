@@ -3,7 +3,7 @@ package com.example.xls2sql.sql.domain;
 
 import com.example.xls2sql.sql.celulaLinhaSql.CelulaLinhaSqlService;
 import com.example.xls2sql.sql.exceptions.CelulaComElementosNaoConversiveisException;
-import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
+import com.example.xls2sql.sql.exceptions.TipoColunaSqlNaoEncontradoException;
 
 import java.util.ArrayList;
 
@@ -62,7 +62,7 @@ public class CelulaLinhaSql extends AcondicionadoresTipoDados {
     /**<p>Modifica a variável celula utilizando a classe CelulaLinhaSqlService para checar se a modificação da classe é
      * válida.</p>
      * <p>Caso a instância da classe não tiver um tipoDados vai soltar a exception
-     * {@link TipoDadoSqlNaoEncontradoException TipoDadoSqlNaoEncontradoException}. </p>
+     * {@link TipoColunaSqlNaoEncontradoException TipoDadoSqlNaoEncontradoException}. </p>
      * <p>Caso o Arraylist a por estiver fora do padrão do tipoDados o método vai soltar a exception
      * {@link CelulaComElementosNaoConversiveisException CelulaComElementosNaoConversiveisException}. </p>
      *  @param listaCelulaAdicionar  Deve ser uma arraylist com o texto novo da variável celula.
@@ -86,7 +86,7 @@ public class CelulaLinhaSql extends AcondicionadoresTipoDados {
 
             }
         }else {
-            throw new TipoDadoSqlNaoEncontradoException(this.getLinha(),this.getColuna());
+            throw new TipoColunaSqlNaoEncontradoException(this.getLinha(),this.getColuna());
         }
 
 

@@ -3,7 +3,7 @@ package com.example.xls2sql.sql.domain;
 import com.example.xls2sql.sql.DadosSql;
 import com.example.xls2sql.sql.factorys.TipoDadosFactory;
 import com.example.xls2sql.sql.exceptions.TextoColunaVaziaException;
-import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
+import com.example.xls2sql.sql.exceptions.TipoColunaSqlNaoEncontradoException;
 
 /**<p>Classe herdeira da Classe AcondicionadoresTipoDados ela armazena todos os dados de uma das colunas do Sql.</p>
  * <p>Ela é criada pela classe {@link com.example.xls2sql.xls.LeitorXls LeitorXls} e depois é guardada em DadosSql.</p>
@@ -30,14 +30,14 @@ public class Coluna extends AcondicionadoresTipoDados {
      * <p>Caso a String esteja vazia o método irá soltar a exception
      * {@link TextoColunaVaziaException TextoColunaVaziaException}</p>
      * <p>Caso o método não encontrar as informações do TipoDados na String ele irá soltar a exception
-     * {@link TipoDadoSqlNaoEncontradoException TipoDadoSqlNaoEncontradoException}</p>
+     * {@link TipoColunaSqlNaoEncontradoException TipoDadoSqlNaoEncontradoException}</p>
      * @param textoCelulaExcel String retirada do xls que será convertida no TipoDados e na variável nome.
      * @param colunaExcel posição no eixo x da célula no arquivo xls.
      *
      *  @see TipoDados*/
     public void adicionar(String textoCelulaExcel, int colunaExcel){
 
-
+        textoCelulaExcel = textoCelulaExcel.strip();
         if (textoCelulaExcel.contains("[")){
             int numeroInicioColchetes = textoCelulaExcel.indexOf("[");
             int numeroFimColchetes = textoCelulaExcel.indexOf("]");
@@ -56,7 +56,7 @@ public class Coluna extends AcondicionadoresTipoDados {
             if (textoCelulaExcel.isEmpty()){
                 throw new TextoColunaVaziaException(colunaExcel);
             }else{
-                throw new TipoDadoSqlNaoEncontradoException(colunaExcel);
+                throw new TipoColunaSqlNaoEncontradoException(colunaExcel);
             }
 
 

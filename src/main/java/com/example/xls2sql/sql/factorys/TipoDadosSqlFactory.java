@@ -1,7 +1,7 @@
 package com.example.xls2sql.sql.factorys;
 
 
-import com.example.xls2sql.sql.exceptions.TipoDadoSqlNaoEncontradoException;
+import com.example.xls2sql.sql.exceptions.TipoColunaSqlNaoEncontradoException;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSql;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlDateTime;
 import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSQLString;
@@ -36,7 +36,7 @@ public class TipoDadosSqlFactory {
 
         if (tipoColunaSql == null){
 
-            throw new TipoDadoSqlNaoEncontradoException(colunaexcel);
+            throw new TipoColunaSqlNaoEncontradoException(colunaexcel);
         }
         return tipoColunaSql;
     }
