@@ -4,7 +4,7 @@ import com.example.xls2sql.coletor.domain.InfoUsuario;
 import com.example.xls2sql.sql.domain.Coluna;
 import com.example.xls2sql.sql.DadosSql;
 import com.example.xls2sql.sql.domain.LinhaSql;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlNumeric;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileWriter;
@@ -74,9 +74,9 @@ public class EscritorSql  {
             if(!primeiraInteracaoLaco){
                 writer.append(",");
             }
-            writer.append(coluna.getNome() + " " + coluna.getTipoDados().tipoDadosSql());
+            writer.append(coluna.getNome() + " " + coluna.getTipoDados().tipoColunaSql());
             if (coluna.getTipoDados().contemNumeroElementos()){
-                if (coluna.getTipoDados().tipoDadosSql() == TipoDadosSqlNumeric.DECIMAL){
+                if (coluna.getTipoDados().tipoColunaSql() == TipoColunaSqlNumeric.DECIMAL){
 
                     String numeroElementos = Double.toString(coluna.getTipoDados().numeroElementos()).replace(".", ",");
                     writer.append("(" + numeroElementos + ")");

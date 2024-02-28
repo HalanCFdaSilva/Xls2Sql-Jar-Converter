@@ -1,23 +1,22 @@
 package com.example.xls2sql.sql.tipoDadosSql;
 
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlDateTime;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlDateTime;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 
-public class TipoDadosSqlDateTimeTest {
+public class TipoColunaSqlDateTimeTest {
 
 
     @Test
     public void daFalsoSempreQueChamaAceitaNumeroElementos(){
 
 
-        boolean resultado = TipoDadosSqlDateTime.TIMESTAMP.aceitaNumeroElementos();
+        boolean resultado = TipoColunaSqlDateTime.TIMESTAMP.aceitaNumeroElementos();
 
-        for (TipoDadosSqlDateTime dateTime: TipoDadosSqlDateTime.values()){
+        for (TipoColunaSqlDateTime dateTime: TipoColunaSqlDateTime.values()){
             if (!resultado){
                 resultado = dateTime.aceitaNumeroElementos();
             }
@@ -31,7 +30,7 @@ public class TipoDadosSqlDateTimeTest {
         ArrayList<String> celula = new ArrayList<>();
         celula.add("1");
         celula.add("0");
-        for (TipoDadosSqlDateTime tipoDadosSql :TipoDadosSqlDateTime.values()){
+        for (TipoColunaSqlDateTime tipoDadosSql : TipoColunaSqlDateTime.values()){
             Assertions.assertEquals(2, celula.size());
             Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,8));
         }
@@ -44,7 +43,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaTrueQuandoDateNoFormatoCerto(){
         ArrayList data = new ArrayList<>();
         data.add("1991/12/30");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.DATE;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.DATE;
         Assertions.assertTrue(dateTime.verificarCelula(data,0));
     }
 
@@ -52,7 +51,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaFalseQuandoDateNoFormatoCerto(){
         ArrayList data = new ArrayList<>();
         data.add("1991");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.DATE;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.DATE;
         Assertions.assertFalse( dateTime.verificarCelula(data,0));
     }
 
@@ -61,7 +60,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaTrueQuandoTimeNoFormatoCerto(){
         ArrayList data = new ArrayList<>();
         data.add("750:25:35");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.TIME;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.TIME;
         Assertions.assertTrue(dateTime.verificarCelula(data,0));
     }
 
@@ -69,7 +68,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaFalseQuandoTimeNoFormatoErrado(){
         ArrayList data = new ArrayList<>();
         data.add("1991");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.TIME;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.TIME;
         Assertions.assertFalse( dateTime.verificarCelula(data,0));
     }
 
@@ -79,7 +78,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaTrueQuandoDateTimeNoFormatoCerto(){
         ArrayList data = new ArrayList<>();
         data.add("1991/12/30 23:56:30");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.DATETIME;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.DATETIME;
         Assertions.assertTrue(dateTime.verificarCelula(data,0));
     }
 
@@ -87,7 +86,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaFalseQuandoDateTimeNoFormatoErrado(){
         ArrayList data = new ArrayList<>();
         data.add("1991");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.DATETIME;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.DATETIME;
         Assertions.assertFalse( dateTime.verificarCelula(data,0));
     }
 
@@ -97,7 +96,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaTrueQuandOTimeStampNoFormatoCerto(){
         ArrayList data = new ArrayList<>();
         data.add("1991/12/30 23:56:30");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.TIMESTAMP;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.TIMESTAMP;
         Assertions.assertTrue(dateTime.verificarCelula(data,0));
     }
 
@@ -105,13 +104,13 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaFalseQuandoTimeStampNoFormatoErrado(){
         ArrayList data = new ArrayList<>();
         data.add("1991");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.TIMESTAMP;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.TIMESTAMP;
         Assertions.assertFalse( dateTime.verificarCelula(data,0));
     }
 
     @Test
     public void retornaFalseQuandoTimeStampComDataMenorA1970(){
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.TIMESTAMP;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.TIMESTAMP;
         ArrayList data = new ArrayList<>();
         data.add("1969/12/30 23:59:59");
 
@@ -124,7 +123,7 @@ public class TipoDadosSqlDateTimeTest {
 
     @Test
     public void retornaFalseQuandoTimeStampComDataMaiorA2038(){
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.TIMESTAMP;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.TIMESTAMP;
         ArrayList data = new ArrayList<>();
         data.add("2038/01/09 03:14:08");
 
@@ -140,7 +139,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaTrueQuandoYearNoFormatoCerto(){
         ArrayList data = new ArrayList<>();
         data.add("1991");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.YEAR;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.YEAR;
         Assertions.assertTrue(dateTime.verificarCelula(data,0));
     }
 
@@ -148,7 +147,7 @@ public class TipoDadosSqlDateTimeTest {
     public void retornaFalseQuandoYearNoFormatoErrado(){
         ArrayList data = new ArrayList<>();
         data.add("1991/12/30 23:56:30");
-        TipoDadosSqlDateTime dateTime = TipoDadosSqlDateTime.YEAR;
+        TipoColunaSqlDateTime dateTime = TipoColunaSqlDateTime.YEAR;
         Assertions.assertFalse( dateTime.verificarCelula(data,0));
     }
 

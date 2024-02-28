@@ -1,8 +1,8 @@
 package com.example.xls2sql.sql.factorys;
 
 import com.example.xls2sql.sql.domain.TipoDados;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSql;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSql;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlNumeric;
 
 
 /**Classe do tipo factory usada para gerar a Classe TipoDados.
@@ -31,11 +31,11 @@ public abstract class TipoDadosFactory {
         }
 
         TipoDadosSqlFactory factoryTipoDadosSql = new TipoDadosSqlFactory();
-        TipoDadosSql tipo = factoryTipoDadosSql.generate(celulaSegundaLinhaExcel,colunaExcel);
+        TipoColunaSql tipo = factoryTipoDadosSql.generate(celulaSegundaLinhaExcel,colunaExcel);
 
         double numeroElementos = 0;
         if (numeroElementosString != null && tipo.aceitaNumeroElementos()){
-            if (tipo.equals(TipoDadosSqlNumeric.DECIMAL)&& numeroElementosString.contains(",")){
+            if (tipo.equals(TipoColunaSqlNumeric.DECIMAL)&& numeroElementosString.contains(",")){
                 numeroElementosString = numeroElementosString.replace(",",".");
             }
             numeroElementos = Double.parseDouble(numeroElementosString);

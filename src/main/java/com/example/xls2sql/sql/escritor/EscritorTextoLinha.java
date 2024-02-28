@@ -3,8 +3,9 @@ package com.example.xls2sql.sql.escritor;
 import com.example.xls2sql.sql.domain.CelulaLinhaSql;
 import com.example.xls2sql.sql.domain.Coluna;
 import com.example.xls2sql.sql.domain.LinhaSql;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlDateTime;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlDateTime;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlNumeric;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSQLString;
 
 import java.util.ArrayList;
 
@@ -69,17 +70,17 @@ public class EscritorTextoLinha {
                     this.textoAEscrever.add(",");
                 }
 
-                if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSqlNumeric")){
+                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoDadosSqlNumeric")){
                     this.textoAEscrever.add(this.escreverElementoNumeric(celulaLinhaSql));
                 }
 
-                if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSQLString")){
+                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoDadosSQLString")){
                     ArrayList<String> textoCelula = this.escreverElementoString(celulaLinhaSql);
                     this.textoAEscrever.addAll(textoCelula);
 
                 }
 
-                if (celulaLinhaSql.getTipoDados().tipoDadosSql().getClass().getSimpleName().equals("TipoDadosSqlDateTime")){
+                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoColunaSqlDateTime")){
                     this.textoAEscrever.add(this.escreverElementoDateTime(celulaLinhaSql));
                 }
                 primeiraInteracaoLaco = false;
@@ -90,7 +91,7 @@ public class EscritorTextoLinha {
 
     /**Método interno que cria uma String com o código para inserir uma célula do tipo Numeric.
      * @param celulaLinhaSql Célula com os dados a serem inseridos no Sql.
-     * @see com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric
+     * @see TipoColunaSqlNumeric
      * @return Retorna uma string com os dados a serem inseridos no sql já formatados para ele.*/
     private String escreverElementoNumeric(CelulaLinhaSql celulaLinhaSql) {
         return celulaLinhaSql.getCelula().get(0);
@@ -99,11 +100,11 @@ public class EscritorTextoLinha {
     /**Método interno que cria uma String com o código para inserir uma célula do tipo DateTime
      * conforme os muitos tipos de DateTime.
      * @param celulaLinhaSql Célula com os dados a serem inseridos no Sql.
-     * @see TipoDadosSqlDateTime
+     * @see TipoColunaSqlDateTime
      * @return Retorna uma string com os dados a serem inseridos no sql já formatados para ele.*/
     private String escreverElementoDateTime(CelulaLinhaSql celulaLinhaSql) {
         String textoAEscrever;
-        switch ((TipoDadosSqlDateTime) celulaLinhaSql.getTipoDados().tipoDadosSql()){
+        switch ((TipoColunaSqlDateTime) celulaLinhaSql.getTipoDados().tipoColunaSql()){
 
             case DATETIME,TIMESTAMP: {
                 String date;
@@ -135,11 +136,11 @@ public class EscritorTextoLinha {
     /**Método interno que cria um {@code Arraylist<String>} com o código para inserir uma célula do tipo String
      * conforme os muitos tipos de String.
      * @param  celulaLinhaSql Célula com os dados a serem inseridos no Sql.
-     * @see TipoDadosSQLString
+     * @see TipoColunaSQLString
      * @return Retorna um arrayList com os dados a serem inseridos no sql já formatados para ele.*/
     private ArrayList<String> escreverElementoString(CelulaLinhaSql celulaLinhaSql){
         ArrayList<String> texto = new ArrayList<>();
-        switch ((TipoDadosSQLString) celulaLinhaSql.getTipoDados().tipoDadosSql()){
+        switch ((TipoColunaSQLString) celulaLinhaSql.getTipoDados().tipoColunaSql()){
             case LONGTEXT : {
                 texto.add("'");
 

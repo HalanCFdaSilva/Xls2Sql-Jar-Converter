@@ -1,23 +1,23 @@
 package com.example.xls2sql.sql.tipoDadosSql;
 
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSql;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSql;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSQLString;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class TipoDadosSqlStringTest {
+public class TipoColunaSqlStringTest {
 //.substring(0,16777217)
 //
 
     @Test
     public void metodoAceitaDadosElementosRetornaTrueSomenteParaEnumQuePermiteNumeroElementos(){
-        boolean aceitaNumeroElementos = TipoDadosSQLString.LONGBLOB.aceitaNumeroElementos();
-        ArrayList<TipoDadosSQLString> resultadoTrue = new ArrayList<>();
-        ArrayList<TipoDadosSQLString> resultadoFalse = new ArrayList<>();
+        boolean aceitaNumeroElementos = TipoColunaSQLString.LONGBLOB.aceitaNumeroElementos();
+        ArrayList<TipoColunaSQLString> resultadoTrue = new ArrayList<>();
+        ArrayList<TipoColunaSQLString> resultadoFalse = new ArrayList<>();
 
-        for (TipoDadosSQLString string: TipoDadosSQLString.values()){
+        for (TipoColunaSQLString string: TipoColunaSQLString.values()){
             aceitaNumeroElementos = string.aceitaNumeroElementos();
             if (aceitaNumeroElementos){
                 resultadoTrue.add(string);
@@ -36,8 +36,8 @@ public class TipoDadosSqlStringTest {
         ArrayList<String> celula = new ArrayList<>();
         celula.add("a");
         celula.add("b");
-        for (TipoDadosSQLString tipoDadosSql :TipoDadosSQLString.values()){
-            if (tipoDadosSql != TipoDadosSQLString.LONGTEXT){
+        for (TipoColunaSQLString tipoDadosSql : TipoColunaSQLString.values()){
+            if (tipoDadosSql != TipoColunaSQLString.LONGTEXT){
                 Assertions.assertEquals(2, celula.size());
                 Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,8));
             }else {
@@ -53,8 +53,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoCharVerificarCelulaComTamanhoDaStringIgualPermitido(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("a");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.CHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.CHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -66,32 +66,32 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.CHAR;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.CHAR;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
     public void retornaTrueAoCharVerificarCelulaComTamanhoDaStringMenorPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.CHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,5));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.CHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,5));
     }
 
     @Test
     public void retornaTrueAoCharVerificarCelulaComTamanhoDaStringIgualPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asada");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.CHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,5));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.CHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,5));
     }
 
     @Test
     public void retornaFalseAoCharVerificarCelulaComTamanhoDaStringMaiorPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asadab");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.CHAR;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,5));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.CHAR;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,5));
     }
 
 
@@ -101,8 +101,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoVarcharVerificarCelulaComTamanhoDaStringMenorPermitido(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.VARCHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.VARCHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -113,8 +113,8 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.VARCHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.VARCHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -126,32 +126,32 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.VARCHAR;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.VARCHAR;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
     public void retornaTrueAoVarcharVerificarCelulaComTamanhoDaStringMenorPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.VARCHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,5));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.VARCHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,5));
     }
 
     @Test
     public void retornaTrueAoVarcharVerificarCelulaComTamanhoDaStringIgualPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asada");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.VARCHAR;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,5));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.VARCHAR;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,5));
     }
 
     @Test
     public void retornaFalseAoVarcharVerificarCelulaComTamanhoDaStringMaiorPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asadab");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.VARCHAR;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,5));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.VARCHAR;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,5));
     }
 
 
@@ -161,8 +161,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoTinytextVerificarCelulaComTamanhoDaStringMenorPermitido(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TINYTEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TINYTEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -174,8 +174,8 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TINYTEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TINYTEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -187,8 +187,8 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TINYTEXT;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TINYTEXT;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
     //  TEXT
@@ -196,8 +196,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoTextVerificarCelulaComTamanhoDaStringMenorPermitido(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -209,8 +209,8 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -221,16 +221,16 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TEXT;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TEXT;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
     public void retornaTrueAoTextVerificarCelulaComTamanhoDaStringMenorPermitidoNumeroElementos(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,3855));
     }
 
     @Test
@@ -242,8 +242,8 @@ public class TipoDadosSqlStringTest {
         }
         celula.add(texto);
 
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,3855));
     }
 
     @Test
@@ -254,8 +254,8 @@ public class TipoDadosSqlStringTest {
             texto += "a";
         }
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.TEXT;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.TEXT;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,3855));
     }
 
 
@@ -264,8 +264,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoMediumtextVerificarCelulaComTamanhoDaStringMenorPermitido(){
         ArrayList<String> celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMTEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.MEDIUMTEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -285,8 +285,8 @@ public class TipoDadosSqlStringTest {
         }
         System.out.println(texto.length());
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMTEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.MEDIUMTEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -306,8 +306,8 @@ public class TipoDadosSqlStringTest {
         }
         texto += "a";
         celula.add(texto);
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMTEXT;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.MEDIUMTEXT;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
 
@@ -316,8 +316,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoLongtextVerificarCelulaComTamanhoDaStringMenorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("asa");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.LONGTEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.LONGTEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -349,8 +349,8 @@ public class TipoDadosSqlStringTest {
         celula.add(texto);
 
 
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.LONGTEXT;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.LONGTEXT;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
@@ -381,8 +381,8 @@ public class TipoDadosSqlStringTest {
         celula.add(texto);
 
 
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.LONGTEXT;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.LONGTEXT;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
 //  BLOB
@@ -391,8 +391,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoBlobVerificarCelulaComTamanhoMenorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto pequeno.txt");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.BLOB;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
 
@@ -400,32 +400,32 @@ public class TipoDadosSqlStringTest {
     public void retornaFalseAoBlobVerificarCelulaComTamanhoMaiorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.txt");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.BLOB;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,0));
     }
 
     @Test
     public void retornafalseAoBlobNaoEncontrarArquivo(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.jpeg");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.BLOB;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,3855));
     }
 
     @Test
     public void retornaTrueAoBlobVerificarCelulaComTamanhoMenorPermitidoNumeroElementos(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto pequeno.txt");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.BLOB;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,3855));
     }
 
     @Test
     public void retornaFalseAoBlobVerificarCelulaComTamanhoMaiorPermitidoNumeroElementos(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.txt");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.BLOB;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.BLOB;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,3855));
     }
 
     //  MEDIUMBLOB
@@ -434,8 +434,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoMediumBlobVerificarCelulaComTamanhoMenorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.txt");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMBLOB;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.MEDIUMBLOB;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
 
@@ -443,8 +443,8 @@ public class TipoDadosSqlStringTest {
     public void retornafalseAoMediumBlobNaoEncontrarArquivo(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.jpeg");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMBLOB;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.MEDIUMBLOB;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,3855));
     }
 
     //  LONGBLOB
@@ -453,8 +453,8 @@ public class TipoDadosSqlStringTest {
     public void retornaTrueAoLongBlobVerificarCelulaComTamanhoMenorPermitido(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.txt");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.LONGBLOB;
-        Assertions.assertTrue(tipoDadosSql.verificarCelula(celula,0));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.LONGBLOB;
+        Assertions.assertTrue(tipoColunaSql.verificarCelula(celula,0));
     }
 
 
@@ -463,8 +463,8 @@ public class TipoDadosSqlStringTest {
     public void retornafalseAoLongBlobNaoEncontrarArquivo(){
         ArrayList celula = new ArrayList<>();
         celula.add("src/main/resources/texto grande.jpeg");
-        TipoDadosSql tipoDadosSql = TipoDadosSQLString.MEDIUMBLOB;
-        Assertions.assertFalse(tipoDadosSql.verificarCelula(celula,3855));
+        TipoColunaSql tipoColunaSql = TipoColunaSQLString.MEDIUMBLOB;
+        Assertions.assertFalse(tipoColunaSql.verificarCelula(celula,3855));
     }
 
 

@@ -74,7 +74,7 @@ public class CelulaLinhaSql extends AcondicionadoresTipoDados {
         if(this.getTipoDados() != null) {
 
             String textoAposChecagem = CelulaLinhaSqlService.formatarCelulaDateTime(
-                    listaCelulaAdicionar.get(0),this.getTipoDados().tipoDadosSql());
+                    listaCelulaAdicionar.get(0),this.getTipoDados().tipoColunaSql());
             listaCelulaAdicionar.set(0, textoAposChecagem);
 
             if (CelulaLinhaSqlService.checarCelulaAIncluir(listaCelulaAdicionar,this.getTipoDados())) {

@@ -1,9 +1,9 @@
 package com.example.xls2sql.domain.sql;
 
 import com.example.xls2sql.sql.domain.Coluna;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSQLString;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSQLString;
 import com.example.xls2sql.sql.exceptions.TextoColunaVaziaException;
-import com.example.xls2sql.sql.tipoDadosSQL.TipoDadosSqlNumeric;
+import com.example.xls2sql.sql.tipoDadosSQL.TipoColunaSqlNumeric;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,21 +29,21 @@ public class ColunaTest {
     public void adicionarTipoDadoSemTamanhoDeElementosNaColuna(){
 
         coluna.adicionar("Pratos[int]",1);
-        Assertions.assertEquals(TipoDadosSqlNumeric.INT, coluna.getTipoDados().tipoDadosSql());
+        Assertions.assertEquals(TipoColunaSqlNumeric.INT, coluna.getTipoDados().tipoColunaSql());
     }
 
     @Test
     public void adicionarTipoDadoComTipoTodoEmMaiusculoNaString(){
 
         coluna.adicionar("Pratos[INT]",1);
-        Assertions.assertEquals(TipoDadosSqlNumeric.INT, coluna.getTipoDados().tipoDadosSql());
+        Assertions.assertEquals(TipoColunaSqlNumeric.INT, coluna.getTipoDados().tipoColunaSql());
     }
 
     @Test
     public void adicionarTipoDadoENumeroElementosNaColuna(){
 
         coluna.adicionar("Pratos[varchar(10)]",1);
-        Assertions.assertEquals(TipoDadosSQLString.VARCHAR, coluna.getTipoDados().tipoDadosSql());
+        Assertions.assertEquals(TipoColunaSQLString.VARCHAR, coluna.getTipoDados().tipoColunaSql());
         Assertions.assertEquals(10, coluna.getTipoDados().numeroElementos());
     }
 
