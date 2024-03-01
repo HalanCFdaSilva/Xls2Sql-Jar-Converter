@@ -19,41 +19,50 @@ public class InfoUsuario {
      * @see com.example.xls2sql.sql.escritor.EscritorSql*/
     private String nomeTabela;
 
-    /**<p>Retorna a variável enderecoXls</p>*/
+    /** Retorna a variável enderecoXls.
+     * @return Retorna o endereço do arquivo xls/xlsx onde estão os dados a ser salvo na tabela sql.*/
     public String getEnderecoXls() {
         return enderecoXls;
     }
 
-    /**<p> Modifica a variável Endereçoxls</p>*/
+    /** Modifica a variável Endereçoxls.
+     * @param enderecoXls String com o endereço do arquivo xls/xlsx onde estão os dados a ser salvo na tabela sql.*/
     public void setEnderecoXls(String enderecoXls) {
         this.enderecoXls = enderecoXls;
     }
 
-    /**<p>Retorna a variável nomeBancoDados</p>*/
+    /** Retorna a variável nomeBancoDados.
+     * @return Retorna o nome do banco de dados do sql onde deve ser salvo os dados.*/
     public String getNomeBancoDados() {
         return nomeBancoDados;
     }
 
-    /**<p> Modifica a variável nomeBancoDados</p>*/
+    /** Modifica a variável nomeBancoDados.
+     * @param nomeBancoDados String com o nome do banco de dados do sql onde deve ser salvo os dados.*/
     public void setNomeBancoDados(String nomeBancoDados) {
         this.nomeBancoDados = nomeBancoDados;
     }
-    /**<p>Retorna a variável nomeTabela</p>*/
+
+    /** Retorna a variável nomeTabela.
+     * @return Retorna o nome da tabela do sql onde deve ser salvo os dados.*/
     public String getNomeTabela() {
         return nomeTabela;
     }
 
-    /**<p> Modifica a variável nomeTabela</p>*/
+    /** Modifica a variável nomeTabela.
+     * @param nomeTabela string com o nome da tabela sql onde será inserido os dados.*/
     public void setNomeTabela(String nomeTabela) {
         this.nomeTabela = nomeTabela;
     }
 
-    /**<p>Retorna a variável enderecoSql</p>*/
+    /**Retorna a variável enderecoSql.
+     * @return retorna o endereço da pasta onde deve ser salvo o arquivoSql.*/
     public String getEnderecoSql() {
         return enderecoSql ;
     }
 
-    /**<p> Modifica a variável EnderecoSql</p>*/
+    /**<p> Modifica a variável EnderecoSql</p>
+     * @param enderecoSql String com o endereço da dasta onde deve ser salvo o arquivoSql.*/
     public void setEnderecoSql(String enderecoSql) {
         this.enderecoSql = enderecoSql + "\\";
     }

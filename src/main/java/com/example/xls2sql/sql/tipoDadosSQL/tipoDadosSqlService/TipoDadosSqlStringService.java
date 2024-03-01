@@ -21,17 +21,11 @@ public class TipoDadosSqlStringService {
      * @see TipoColunaSQLString */
     public boolean verificarCelulaChar(String celula,double numeroElementos) {
         if (numeroElementos == 0){
-            if (celula.length() <= 1){
-                return true;
-            }
+            return celula.length() <= 1;
 
         }else {
-            if (celula.length() <= numeroElementos){
-                return true;
-            }
+            return celula.length() <= numeroElementos;
         }
-
-        return false;
 
     }
 
@@ -44,16 +38,10 @@ public class TipoDadosSqlStringService {
     public boolean verificarCelulaVarChar(String celula,double numeroElementos) {
         if (numeroElementos == 0){
 
-            if ( celula.length() <= 65535){
-                return true;
-            }
+            return celula.length() <= 65535;
         }else {
-            if (celula.length() <= numeroElementos){
-                return true;
-            }
+            return celula.length() <= numeroElementos;
         }
-
-        return false;
 
     }
 
@@ -64,10 +52,7 @@ public class TipoDadosSqlStringService {
      * @see TipoColunaSQLString */
     public boolean verificarCelulaTinyText(String celula) {
 
-        if (celula.length() <= 255){
-            return true;
-        }
-        return false;
+        return celula.length() <= 255;
     }
 
     /**Método que checa se o parâmetro está dentro das regras do tipo sql Text.
@@ -79,16 +64,10 @@ public class TipoDadosSqlStringService {
     public boolean verificarCelulaText(String celula,double numeroElementos) {
         final byte[] bytesString = celula.getBytes();
         if (numeroElementos == 0){
-            if (bytesString.length <= 65535){
-                return true;
-            }
+            return bytesString.length <= 65535;
         }else {
-            if (bytesString.length <= numeroElementos){
-                return true;
-            }
+            return bytesString.length <= numeroElementos;
         }
-
-        return false;
     }
 
     /**Método que checa se o parâmetro está dentro das regras do tipo sql MediumText.
@@ -97,10 +76,7 @@ public class TipoDadosSqlStringService {
      * @see TipoColunaSQLString */
     public boolean verificarCelulaMediumText(String celula) {
 
-        if (celula.length() <= 16777215){
-            return true;
-        }
-        return false;
+        return celula.length() <= 16777215;
 
     }
 
@@ -115,10 +91,7 @@ public class TipoDadosSqlStringService {
             tamanhoString += text.length();
         }
 
-        if (tamanhoString <= 4294967295L){
-            return true;
-        }
-        return false;
+        return tamanhoString <= 4294967295L;
 
 
     }
@@ -134,15 +107,10 @@ public class TipoDadosSqlStringService {
     public boolean verificarCelulaBlob(String celula, double numeroElementos) {
         File fileString = new File(celula);
         if (numeroElementos == 0){
-            if (fileString.isFile() && fileString.length() <= 65535){
-                return true;
-            }
+            return fileString.isFile() && fileString.length() <= 65535;
         }else {
-            if (fileString.isFile() && fileString.length() <= numeroElementos){
-                return true;
-            }
+            return fileString.isFile() && fileString.length() <= numeroElementos;
         }
-        return false;
     }
 
     /**Método que checa se o arquivo endereçado no parâmetro está dentro das regras do tipo sql blob.
@@ -152,10 +120,7 @@ public class TipoDadosSqlStringService {
     public boolean verificarCelulaMediumBlob(String celula) {
 
         File fileString = new File(celula);
-        if (fileString.isFile() && fileString.length() <= 16777215){
-            return true;
-        }
-        return false;
+        return fileString.isFile() && fileString.length() <= 16777215;
     }
 
     /**Método que checa se o arquivo endereçado no parâmetro está dentro das regras do tipo sql blob.
@@ -165,10 +130,7 @@ public class TipoDadosSqlStringService {
     public boolean verificarCelulaLongBlob(String celula) {
 
         File fileString = new File(celula);
-        if (fileString.isFile() && fileString.length() <=  4294967295l){
-            return true;
-        }
-        return false;
+        return fileString.isFile() && fileString.length() <= 4294967295L;
     }
 
 

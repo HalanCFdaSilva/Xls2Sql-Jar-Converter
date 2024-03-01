@@ -39,7 +39,11 @@ public class TipoDadosSqlNumericService {
 
         try{
             Integer.parseInt(celula,2);
-            return celula.length() <= numeroElementos;
+            if (numeroElementos == 0){
+                return celula.length() == 1;
+            }else {
+                return celula.length() <= numeroElementos;
+            }
         }catch (Exception e){
             return false;
 
@@ -63,7 +67,7 @@ public class TipoDadosSqlNumericService {
      * @see TipoColunaSqlNumeric */
     public boolean verificarCelulaSmallInt(String celula) {
         int valorCelula = Integer.parseInt(celula);
-        return valorCelula <= 32767 && valorCelula >= -32767;
+        return valorCelula <= 32767 && valorCelula >= -32768;
     }
 
     /**Método que checa se o parâmetro está dentro das regras do tipo sql MediumInt.
@@ -73,7 +77,7 @@ public class TipoDadosSqlNumericService {
     public boolean verificarCelulaMediumInt(String celula) {
 
         int valorCelula = Integer.parseInt(celula);
-        return valorCelula <= 8388608 && valorCelula >= -8388608;
+        return valorCelula <= 8388607 && valorCelula >= -8388608;
 
     }
 
@@ -84,7 +88,7 @@ public class TipoDadosSqlNumericService {
     public boolean verificarCelulaBigInt(String celula) {
         try {
 
-            long valorCelula = Long.parseLong(celula);
+            Long.parseLong(celula);
             return true;
 
         } catch (Exception e) {
@@ -100,7 +104,7 @@ public class TipoDadosSqlNumericService {
     public boolean verificarCelulaInt(String celula) {
         if (!celula.contains(".")){
             double valorCelula = Double.parseDouble(celula);
-            long valorAVerificar = Long.parseLong("2147483648");
+            long valorAVerificar = Long.parseLong("2147483647");
             return valorCelula <= valorAVerificar && valorCelula >= -2147483648;
         }
         return false;

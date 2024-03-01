@@ -35,11 +35,8 @@ public abstract class TipoDadosFactory {
 
         double numeroElementos = 0;
         if (numeroElementosString != null && tipo.aceitaNumeroElementos()){
-            if (tipo.equals(TipoColunaSqlNumeric.DECIMAL)&& numeroElementosString.contains(",")){
-                numeroElementosString = numeroElementosString.replace(",",".");
-            }
+            numeroElementosString = numeroElementosString.replace(",",".");
             numeroElementos = Double.parseDouble(numeroElementosString);
-
         }
 
         return new TipoDados(tipo, numeroElementos,colunaExcel);
