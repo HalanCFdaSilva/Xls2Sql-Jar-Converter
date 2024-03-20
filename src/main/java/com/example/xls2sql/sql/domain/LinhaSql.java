@@ -27,7 +27,15 @@ public class LinhaSql {
      * @param celulaLinhaSql  Recebe a instância da classe {@link CelulaLinhaSql CelulaLinhaSql} que deseja inserir
      * a variável.*/
     public void adicionar(CelulaLinhaSql celulaLinhaSql){
-        this.celulasLinha.add(celulaLinhaSql);
+        boolean celulaLinhaSqlOutraColuna = true;
+        for (CelulaLinhaSql celulaLinha : this.getCelulasLinha()){
+            if (celulaLinhaSql.getColuna() == celulaLinha.getColuna()){
+                celulaLinhaSqlOutraColuna = false;
+            }
+        }
+        if (celulaLinhaSqlOutraColuna){
+            this.celulasLinha.add(celulaLinhaSql);
+        }
     }
 
     /**Retorna a instância da variável celulasLinha.*/
@@ -44,45 +52,17 @@ public class LinhaSql {
      */
     public void incluirNull(ArrayList<Coluna> colunas){
 
-        if (colunas.size() > this.celulasLinha.size()){
-            for (int i = 0; i < colunas.size();i++){
+        for (Coluna coluna : colunas){
+            CelulaLinhaSql celulaLinhaSqlSalva = this.getCelula(coluna.getTipoDados().posicaoColunaXls());
+            if (celulaLinhaSqlSalva == null){
 
-                CelulaLinhaSql celulaAnterior = this.celulasLinha.get(0);
-                int posicaoColuna = colunas.get(i).getTipoDados().posicaoColunaXls();
-                boolean celulaNull = false;
-                boolean primeiraInteracaoCelula = true;
-                for (CelulaLinhaSql celula : this.celulasLinha){
-
-                    if (i+1 == colunas.size()|| primeiraInteracaoCelula){
-                        if (celula == celulasLinha.get(celulasLinha.size()-1) && celula.getColuna() < posicaoColuna){
-                            celulaNull = true;
-                        }
-                        if (celula.getColuna() > posicaoColuna && primeiraInteracaoCelula ){
-                            celulaNull = true;
-                        }
-                        primeiraInteracaoCelula = false;
-                    }else{
-                        if (celulaAnterior.getColuna() < posicaoColuna && celula.getColuna() >posicaoColuna){
-                            celulaNull = true;
-                        }
-                    }
-
-
-                    celulaAnterior = celula;
-                }
-
-                if (celulaNull){
-
-                    CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(this.linhaXls,posicaoColuna);
-                    ArrayList<String> stringNull= new ArrayList<>();
-                    stringNull.add("null");
-                    celulaLinhaSql.adicionarCelula(stringNull,colunas.get(i).getTipoDados());
-                    this.celulasLinha.add(i,celulaLinhaSql);
-                }
-
+                CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(this.linhaXls,coluna.getTipoDados().posicaoColunaXls());
+                ArrayList<String> stringNull= new ArrayList<>();
+                stringNull.add("null");
+                celulaLinhaSql.adicionarCelula(stringNull,coluna.getTipoDados());
+                this.celulasLinha.add(celulaLinhaSql);
 
             }
-
         }
 
 

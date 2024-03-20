@@ -1,4 +1,4 @@
-package com.example.xls2sql.domain.sql;
+package com.example.xls2sql.sql.domain;
 
 import com.example.xls2sql.sql.domain.CelulaLinhaSql;
 import com.example.xls2sql.sql.domain.Coluna;

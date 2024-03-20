@@ -199,7 +199,7 @@ public class TipoColunaSqlDateTimeTest {
 //    YEAR
     /**Método que verifica se a constante Year retorna true quando chamado o método verificarCelula e pondo como
      * parâmetro um arraylist contendo uma única string com o texto dentro do formato permitido pela constânte. */
-@Test
+    @Test
     public void retornaTrueQuandoYearNoFormatoCerto(){
         ArrayList<String> data = new ArrayList<>();
         data.add("1991");

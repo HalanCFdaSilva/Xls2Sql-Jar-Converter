@@ -1,4 +1,4 @@
-package com.example.xls2sql.domain.sql;
+package com.example.xls2sql.sql.domain;
 
 import com.example.xls2sql.sql.domain.CelulaLinhaSql;
 import com.example.xls2sql.sql.domain.Coluna;
@@ -31,6 +31,8 @@ public class DadosSqlTest {
     @Test
     public void adicionarElementoSql() {
         LinhaSql linhaSql = new LinhaSql(1);
+        CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(0,0);
+        linhaSql.adicionar(celulaLinhaSql);
         DadosSql dadosSql = new DadosSql();
         dadosSql.adicionar(linhaSql);
 
