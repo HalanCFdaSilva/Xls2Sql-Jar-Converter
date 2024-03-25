@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class TipoDadosSqlDateTimeServiceTest {
 
-
+    /**Método que verifica se o método verificarCelulaYear retorna true quando recebe uma string com o texto dentro do formato permitido. */
     @Test
     public void retornaTrueQuandoYearNoFormatoCerto(){
         String data = "1991";
@@ -15,8 +15,7 @@ public class TipoDadosSqlDateTimeServiceTest {
         Assertions.assertTrue( dateTimeService.verificarCelulaYear(data));
     }
 
-    /**Método que verifica se a constante Year retorna false quando chamado o método verificarCelula e pondo como
-     * parâmetro um arraylist contendo uma única string com o texto fora do formato permitido pela constânte. */
+    /**Método que verifica se o método verificarCelulaYear retorna false quando recebe uma string com o texto fora do formato permitido. */
     @Test
     public void retornaFalseQuandoChecaYearRecebendoStringNoFormatoErrado(){
         String data = "1991/12/30 23:56:30";

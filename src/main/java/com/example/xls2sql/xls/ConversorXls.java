@@ -44,7 +44,9 @@ public class ConversorXls {
         CelulaLinhaSql celulaLinhaSql = new CelulaLinhaSql(this.linhaXls,this.colunaXls);
 
 
+
         switch (cell.getCellType()) {
+
 
 
             case NUMERIC ->{
@@ -79,6 +81,7 @@ public class ConversorXls {
                     numeroLimiteAtual = 16777215*i;
                 }
 
+
                 int numerMaximo = cell.getStringCellValue().length() - numeroLimiteAntigo;
                 if (numerMaximo > 0){
                     String celula = cell.getStringCellValue().substring(numeroLimiteAntigo);
@@ -89,6 +92,7 @@ public class ConversorXls {
 
         }
         celulaLinhaSql.adicionarCelula(celulaAAdicionar,tipoDados);
+
 
         return celulaLinhaSql;
 

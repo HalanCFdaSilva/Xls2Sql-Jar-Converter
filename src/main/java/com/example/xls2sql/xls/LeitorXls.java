@@ -98,7 +98,6 @@ public class LeitorXls {
                 CelulaLinhaSql celulaLinhaSql = conversorXls.adicionarElemento(cell, colunaElemento.getTipoDados());
                 linhaSql.adicionar(celulaLinhaSql);
 
-
             }
             if (!this.linhaTemMaisUmaCelula){
                 this.dadosSql.adicionar(linhaSql);

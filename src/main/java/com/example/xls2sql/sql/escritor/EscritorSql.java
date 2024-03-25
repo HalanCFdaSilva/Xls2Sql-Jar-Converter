@@ -1,6 +1,7 @@
 package com.example.xls2sql.sql.escritor;
 
 import com.example.xls2sql.coletor.domain.InfoUsuario;
+import com.example.xls2sql.sql.domain.CelulaLinhaSql;
 import com.example.xls2sql.sql.domain.Coluna;
 import com.example.xls2sql.sql.DadosSql;
 import com.example.xls2sql.sql.domain.LinhaSql;

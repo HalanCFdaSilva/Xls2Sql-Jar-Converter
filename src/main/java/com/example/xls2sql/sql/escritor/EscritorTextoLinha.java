@@ -69,12 +69,11 @@ public class EscritorTextoLinha {
                 if (!primeiraInteracaoLaco) {
                     this.textoAEscrever.add(",");
                 }
-
-                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoDadosSqlNumeric")){
+                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoColunaSqlNumeric")){
                     this.textoAEscrever.add(this.escreverElementoNumeric(celulaLinhaSql));
                 }
 
-                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoDadosSQLString")){
+                if (celulaLinhaSql.getTipoDados().tipoColunaSql().getClass().getSimpleName().equals("TipoColunaSQLString")){
                     ArrayList<String> textoCelula = this.escreverElementoString(celulaLinhaSql);
                     this.textoAEscrever.addAll(textoCelula);
 
